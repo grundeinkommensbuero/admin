@@ -1,10 +1,11 @@
 import React from 'react';
-import './App.css';
+import './index.css';
+import Nav from '../Nav';
 
 const App = () => {
   return (
-    <div className="App">
-      <header className="App-header"></header>
+    <div className="app">
+      <Nav />
     </div>
   );
 };
