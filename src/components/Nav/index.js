@@ -1,21 +1,14 @@
 import React from 'react';
-import { Sidebar, Menu, Icon } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 
 const Nav = () => {
   return (
-    <Sidebar
-      as={Menu}
-      animation="overlay"
-      icon="labeled"
-      vertical
-      visible
-      width="thin"
-    >
+    <Menu vertical fixed="left" icon="labeled" size="small">
       <Menu.Item as="a">
         <Icon name="list alternate" />
         Unterschriften scannen
       </Menu.Item>
-    </Sidebar>
+    </Menu>
   );
 };
 

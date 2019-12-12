@@ -1,0 +1,5 @@
+@import '../../vars.css';
+
+label {
+  color: var(--secondary-color) !important;
+}
