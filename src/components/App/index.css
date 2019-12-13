@@ -1,16 +1,32 @@
 @import '../../vars.css';
 
 .app {
-  background-color: var(--primary-color);
-  min-height: 100vh;
-  color: var(--secondary-color);
+  height: 100vh;
+  background-color: var(--primaryColor);
+  color: var(--secondaryColor);
 }
 
 i {
-  color: var(--primary-color);
+  color: var(--primaryColor);
 }
 
 .content {
   margin-left: 13rem;
-  padding: 20rem;
+  padding: 17rem 25rem;
+}
+
+@media (max-width: 800px) {
+  .content {
+    padding: 17rem 10rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .content {
+    padding: 17rem 2rem;
+  }
+}
+
+.signIn {
+  padding: 17rem 35rem;
 }

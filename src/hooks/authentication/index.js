@@ -58,7 +58,11 @@ const signIn = async (email, setState) => {
     //we already set the user here, because we need the object in answerCustomChallenge()
     setState({ state: 'success', user: user });
   } catch (error) {
-    setState({ state: 'error' });
+    if (error.code === 'UserNotFoundException') {
+      setState({ state: 'userNotFound' });
+    } else {
+      setState({ state: 'error' });
+    }
     console.log('Error while signing in', error);
   }
 };

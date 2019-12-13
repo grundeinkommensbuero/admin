@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import config from '../../../config';
 
-export const useUpdateSignatureList = () => {
+const useUpdateSignatureList = () => {
   const [state, setState] = useState(null);
   return [state, data => updateSignatureList(data, setState)];
 };
-
+export default useUpdateSignatureList;
 const updateSignatureList = async (data, setState) => {
   setState('saving');
   try {
@@ -19,7 +19,7 @@ const updateSignatureList = async (data, setState) => {
       body: JSON.stringify(data),
     };
     const response = await fetch(
-      config.API.INVOKE_URL + '/admin/signatures',
+      config.api.invokeUrl + '/admin/signatures',
       request
     );
     if (response.status === 204) {

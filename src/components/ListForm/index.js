@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from 'semantic-ui-react';
 import './index.css';
-import { useUpdateSignatureList } from '../../hooks/updateSignatures';
+import useUpdateSignatureList from '../../hooks/api/updateSignatures';
 
 const ListForm = () => {
   const [formState, setFormState] = useState({
@@ -14,7 +14,7 @@ const ListForm = () => {
   console.log('state', state);
 
   return (
-    <Form onSubmit={updateSignatureList(formState)}>
+    <Form onSubmit={() => updateSignatureList(formState)}>
       <Form.Group>
         <Form.Input
           label="Listen ID"
