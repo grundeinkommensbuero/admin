@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSignIn, useAnswerChallenge } from '../../hooks/authentication';
 import SignInForm from './SignInForm';
 import ChallengeForm from './ChallengeForm';
