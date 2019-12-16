@@ -1,36 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import './index.css';
 import Nav from '../Nav';
 import ListForm from '../ListForm';
 import Auth from '@aws-amplify/auth';
 import config from '../../config';
 import SignIn from '../SignIn';
+import AuthContext from '../../context/authentication';
 
 //configure cognito
 Auth.configure(config.cognito);
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const { isAuthenticated, setIsAuthenticated, setUser } = useContext(
+    AuthContext
+  );
 
   //check if user is authenticated upon mount
   useEffect(() => {
     //declare function inside, because useEffect cannot be async
     const updateUser = async () => {
+      console.log('calling use effect');
       try {
         const user = await Auth.currentAuthenticatedUser();
-        console.log('user', user);
+
+        //set user in context (global state)
+        setIsAuthenticated(true);
         setUser(user);
       } catch (error) {
         //error is thrown if user is not authenticated
+        setIsAuthenticated(false);
         setUser(null);
       }
     };
     updateUser();
-  }, []); //empty array to only run effect once
+
+    // disable linting rule, because we definitely only want
+    // to call useEffect once and don't want dependencies
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  console.log('is authenticated in app', isAuthenticated);
 
   return (
     <div className="app">
-      {user && (
+      {isAuthenticated && (
         <>
           <Nav />
           <div className="content">
@@ -38,9 +51,9 @@ const App = () => {
           </div>
         </>
       )}
-      {!user && (
+      {!isAuthenticated && (
         <div className="signIn">
-          <SignIn finishSignIn={user => setUser(user)} />
+          <SignIn />
         </div>
       )}
     </div>
