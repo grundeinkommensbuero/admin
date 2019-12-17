@@ -15,15 +15,21 @@ i {
   padding: 10rem 25rem;
 }
 
+@media (max-width: 1050px) {
+  .content {
+    padding: 10rem 15rem;
+  }
+}
+
 @media (max-width: 800px) {
   .content {
-    padding: 17rem 10rem;
+    padding: 10rem 10rem;
   }
 }
 
 @media (max-width: 500px) {
   .content {
-    padding: 17rem 2rem;
+    padding: 10rem 2rem;
   }
 }
 
