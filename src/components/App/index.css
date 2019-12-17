@@ -1,7 +1,7 @@
 @import '../../vars.css';
 
 .app {
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--primaryColor);
   color: var(--secondaryColor);
 }
@@ -12,7 +12,7 @@ i {
 
 .content {
   margin-left: 13rem;
-  padding: 17rem 25rem;
+  padding: 10rem 25rem;
 }
 
 @media (max-width: 800px) {

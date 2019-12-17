@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from 'react';
 import './index.css';
 import Nav from '../Nav';
-import ListForm from '../ListForm';
 import Auth from '@aws-amplify/auth';
 import config from '../../config';
 import SignIn from '../SignIn';
 import AuthContext from '../../context/authentication';
+import Forms from '../Forms';
 
 //configure cognito
 Auth.configure(config.cognito);
@@ -19,7 +19,6 @@ const App = () => {
   useEffect(() => {
     //declare function inside, because useEffect cannot be async
     const updateUser = async () => {
-      console.log('calling use effect');
       try {
         const user = await Auth.currentAuthenticatedUser();
 
@@ -39,15 +38,13 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log('is authenticated in app', isAuthenticated);
-
   return (
     <div className="app">
       {isAuthenticated && (
         <>
           <Nav />
           <div className="content">
-            <ListForm />
+            <Forms />
           </div>
         </>
       )}

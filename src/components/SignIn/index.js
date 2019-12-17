@@ -10,12 +10,11 @@ const SignIn = () => {
   //use hook to later answer custom challenge
   const [challengeState, answerChallenge] = useAnswerChallenge();
 
-  console.log('sign in state', signInState);
-
   //for the first step just render the email form
   if (signInState !== 'success') {
     return (
       <>
+        {signInState === 'loading' && <p>Einen Moment...</p>}
         {signInState === 'error' && <p>Fehler!</p>}
         {signInState === 'userNotFound' && (
           <p>Es wurde kein*e Nutzer*in gefunden</p>
@@ -30,6 +29,7 @@ const SignIn = () => {
   if (signInState === 'success') {
     return (
       <>
+        {challengeState === 'loading' && <p>Einen Moment...</p>}
         {challengeState === 'wrongCode' && <p>Falscher Code!</p>}
 
         <ChallengeForm handleSubmit={code => answerChallenge(code)} />

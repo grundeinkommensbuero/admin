@@ -1,8 +1,8 @@
-import { useState, useContext } from 'react';
-import config from '../../../config';
+import { useContext, useState } from 'react';
 import AuthContext from '../../../context/authentication';
+import config from '../../../config';
 
-export const useUpdateSignatureList = () => {
+export const useCreateUser = () => {
   const [state, setState] = useState(null);
 
   //get auth token from global context
@@ -10,31 +10,34 @@ export const useUpdateSignatureList = () => {
 
   return [
     state,
-    (count, listId) => updateSignatureList(count, listId, token, setState),
+    (email, campaignCode) => createUser(email, campaignCode, token, setState),
   ];
 };
 
-const updateSignatureList = async (count, listId, token, setState) => {
+//makes an api call to create a user (in cognito and dynamo)
+const createUser = async (email, campaignCode, token, setState) => {
   setState('saving');
   try {
-    //make api call to set signature count
     const request = {
-      method: 'PATCH',
+      method: 'POST',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
         Authorization: token,
       },
-      body: JSON.stringify({ count }),
+      body: JSON.stringify({ email, campaignCode }),
     };
 
     const response = await fetch(
-      `${config.api.invokeUrl}/admin/signatures/${listId}`,
+      `${config.api.invokeUrl}/admin/users`,
       request
     );
 
-    if (response.status === 204) {
+    if (response.status === 201) {
       setState('saved');
+    } else if (response.status === 200) {
+      //api returns 200 if user exists
+      setState('userExists');
     } else {
       console.log('response status', response.status);
       setState('error');

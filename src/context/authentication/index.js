@@ -20,7 +20,6 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     //only if user is authenticated
     if (user !== null && isAuthenticated) {
-      console.log('user in effect', user);
       setToken(user.signInUserSession.idToken.jwtToken);
     }
   }, [user, isAuthenticated]);
