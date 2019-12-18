@@ -1,7 +1,10 @@
 console.log('env', process.env.NODE_ENV);
 const config = {
   api: {
-    invokeUrl: 'https://vmhbaao23c.execute-api.eu-central-1.amazonaws.com/dev',
+    invokeUrl:
+      process.env.NODE_ENV === 'development'
+        ? 'https://vmhbaao23c.execute-api.eu-central-1.amazonaws.com/dev'
+        : 'https://vmhbaao23c.execute-api.eu-central-1.amazonaws.com/prod',
   },
   cognito: {
     region: 'eu-central-1',

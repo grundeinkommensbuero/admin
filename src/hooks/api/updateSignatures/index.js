@@ -10,11 +10,12 @@ export const useUpdateSignatureList = () => {
 
   return [
     state,
-    (count, listId) => updateSignatureList(count, listId, token, setState),
+    (listId, count, mixed) =>
+      updateSignatureList(listId, count, mixed, token, setState),
   ];
 };
 
-const updateSignatureList = async (count, listId, token, setState) => {
+const updateSignatureList = async (listId, count, mixed, token, setState) => {
   setState('saving');
   try {
     //make api call to set signature count
@@ -25,7 +26,7 @@ const updateSignatureList = async (count, listId, token, setState) => {
         'Content-Type': 'application/json',
         Authorization: token,
       },
-      body: JSON.stringify({ count }),
+      body: JSON.stringify({ count, mixed }),
     };
 
     const response = await fetch(

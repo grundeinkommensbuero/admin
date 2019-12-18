@@ -9,7 +9,8 @@ const Forms = () => {
     <>
       <Header color="orange">Unterschriften eintragen</Header>
       <ListForm />
-
+      <br />
+      <br />
       <Header color="orange">In den Newsletter eintragen</Header>
       <NewsletterForm />
     </>

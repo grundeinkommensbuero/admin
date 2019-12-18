@@ -6,14 +6,18 @@ const ListForm = () => {
   //states for the form
   const [listId, setListId] = useState('');
   const [count, setCount] = useState(5);
+  const [mixed, setMixed] = useState(false);
 
   const [state, updateSignatureList] = useUpdateSignatureList();
 
-  //reset list id if user was successfully added
+  //reset list id and checkbox if user was successfully added
   useEffect(() => {
     if (state === 'saved') {
       console.log('resetting list');
       setListId('');
+      setMixed(false);
+      //focus on input element again
+      document.querySelector('#list-id-input').focus();
     }
   }, [state]);
 
@@ -23,13 +27,14 @@ const ListForm = () => {
       {state === 'error' && <p>Fehler!</p>}
       {state === 'saved' && <p>Liste erfolgreich aktualisiert</p>}
 
-      <Form onSubmit={() => updateSignatureList(count, listId)}>
+      <Form onSubmit={() => updateSignatureList(listId, count, mixed)}>
         <Form.Group>
           <Form.Input
+            id="list-id-input"
             label="Listen ID"
             placeholder="Listen ID"
             value={listId}
-            width={8}
+            width={12}
             onChange={event => setListId(event.target.value)}
           />
           <Form.Input
@@ -39,6 +44,18 @@ const ListForm = () => {
             width={4}
             value={count}
             onChange={event => setCount(event.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Checkbox
+            width={12}
+            className="inlineCheckbox"
+            label="Mehrere Ämter"
+            checked={mixed}
+            onChange={() => {
+              setMixed(!mixed);
+            }}
           />
           <Form.Button width={4} className="inlineButton" type="submit">
             Speichern
