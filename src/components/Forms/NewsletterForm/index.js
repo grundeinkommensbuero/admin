@@ -1,19 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form } from 'semantic-ui-react';
 import { useCreateUser } from '../../../hooks/api/createUser';
 
-const NewsletterForm = ({ campaign }) => {
+const campaignOptions = [
+  {
+    key: 'schleswig-holstein-1',
+    text: 'Schleswig Holstein 1',
+    value: 'schleswig-holstein-1',
+  },
+  {
+    key: 'berlin-0',
+    text: 'Berlin Veranstaltung',
+    value: 'berlin-0',
+  },
+];
+
+const NewsletterForm = () => {
   const [email, setEmail] = useState('');
+  const [campaign, setCampaign] = useState(campaignOptions[0].value);
   const [state, createUser] = useCreateUser();
+
+  //reset email if user was successfully added
+  useEffect(() => {
+    if (state === 'saved') {
+      setEmail('');
+    }
+  }, [state]);
 
   return (
     <>
       {state === 'saving' && <p>Wird gespeichert...</p>}
-      {state === 'error' && <p>Fehler!</p>}
-      {state === 'userExists' && <p>User*in existiert bereits</p>}
       {state === 'saved' && <p>User*in erfolgreich eingetragen</p>}
+      {state === 'invalidEmail' && <p>Ungültige E-Mail-Adresse</p>}
+      {state === 'userExists' && <p>User*in existiert bereits</p>}
+      {state === 'error' && <p>Fehler!</p>}
 
       <Form onSubmit={() => createUser(email, campaign)}>
+        <Form.Dropdown
+          placeholder="Kampagne auswählen"
+          fluid
+          selection
+          options={campaignOptions}
+          onChange={(event, data) => setCampaign(data.value)}
+          label="Kampagne"
+        />
+
         <Form.Group>
           <Form.Input
             label="E-Mail-Adresse"

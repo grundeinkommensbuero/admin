@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form } from 'semantic-ui-react';
 import { useUpdateSignatureList } from '../../../hooks/api/updateSignatures';
 
@@ -8,6 +8,14 @@ const ListForm = () => {
   const [count, setCount] = useState(5);
 
   const [state, updateSignatureList] = useUpdateSignatureList();
+
+  //reset list id if user was successfully added
+  useEffect(() => {
+    if (state === 'saved') {
+      console.log('resetting list');
+      setListId('');
+    }
+  }, [state]);
 
   return (
     <>

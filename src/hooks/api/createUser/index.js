@@ -35,12 +35,19 @@ const createUser = async (email, campaignCode, token, setState) => {
 
     if (response.status === 201) {
       setState('saved');
-    } else if (response.status === 200) {
-      //api returns 200 if user exists
-      setState('userExists');
     } else {
-      console.log('response status', response.status);
-      setState('error');
+      const { error } = await response.json();
+      console.log('error', response.status, error);
+      console.log('code', error.code);
+      if (error.code === 'InvalidParameterException') {
+        //btw: api returns 400 if email is invalid
+        setState('invalidEmail');
+      } else if (error.code === 'UsernameExistsException') {
+        //btw: api returns 200 if user exists
+        setState('userExists');
+      } else {
+        setState('error');
+      }
     }
   } catch (error) {
     console.log(error);
