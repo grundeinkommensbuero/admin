@@ -24,6 +24,8 @@ const NewsletterForm = () => {
   useEffect(() => {
     if (state === 'saved') {
       setEmail('');
+      //focus on input element again
+      document.querySelector('#email-input').focus();
     }
   }, [state]);
 
@@ -47,6 +49,7 @@ const NewsletterForm = () => {
 
         <Form.Group>
           <Form.Input
+            id="email-input"
             label="E-Mail-Adresse"
             placeholder="E-Mail-Adresse"
             width={12}
