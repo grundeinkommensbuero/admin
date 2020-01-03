@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import AuthContext from '../../../context/authentication';
-import config from '../../../config';
+import CONFIG from '../../../config';
 
 export const useCreateUser = () => {
   const [state, setState] = useState(null);
@@ -29,7 +29,7 @@ const createUser = async (email, campaignCode, token, setState) => {
     };
 
     const response = await fetch(
-      `${config.api.invokeUrl}/admin/users`,
+      `${CONFIG.API.INVOKE_URL}/admin/users`,
       request
     );
 

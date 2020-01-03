@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import config from '../../../config';
+import CONFIG from '../../../config';
 import AuthContext from '../../../context/authentication';
 
 export const useUpdateSignatureList = () => {
@@ -30,7 +30,7 @@ const updateSignatureList = async (listId, count, mixed, token, setState) => {
     };
 
     const response = await fetch(
-      `${config.api.invokeUrl}/admin/signatures/${listId}`,
+      `${CONFIG.API.INVOKE_URL}/admin/signatures/${listId}`,
       request
     );
 

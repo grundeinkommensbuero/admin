@@ -2,13 +2,17 @@ import React, { useEffect, useContext } from 'react';
 import './index.css';
 import Nav from '../Nav';
 import Auth from '@aws-amplify/auth';
-import config from '../../config';
+import CONFIG from '../../config';
 import SignIn from '../SignIn';
 import AuthContext from '../../context/authentication';
 import Forms from '../Forms';
 
 //configure cognito
-Auth.configure(config.cognito);
+Auth.configure({
+  region: CONFIG.COGNITO.REGION,
+  userPoolId: CONFIG.COGNITO.USER_POOL_ID,
+  userPoolWebClientId: CONFIG.COGNITO.USER_POOL_CLIENT_ID,
+});
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated, setUser } = useContext(
