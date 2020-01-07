@@ -7,6 +7,8 @@ import SignIn from '../SignIn';
 import AuthContext from '../../context/authentication';
 import Forms from '../Forms';
 
+console.log('CONFIG', CONFIG);
+
 //configure cognito
 Auth.configure({
   region: CONFIG.COGNITO.REGION,
