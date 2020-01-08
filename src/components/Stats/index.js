@@ -10,7 +10,7 @@ const Stats = () => {
         Object.keys(stats).map(campaign => (
           <p>
             <b>{campaign}</b>: {stats[campaign].withMixed} (mit gemischten
-            Ämtern), {stats[campaign].withMixed} (ohne gemischte Ämter)
+            Ämtern), {stats[campaign].withoutMixed} (ohne gemischte Ämter)
           </p>
         ))}
     </>
