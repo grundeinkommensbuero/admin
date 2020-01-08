@@ -6,6 +6,7 @@ import CONFIG from '../../config';
 import SignIn from '../SignIn';
 import AuthContext from '../../context/authentication';
 import Forms from '../Forms';
+import Stats from '../Stats';
 
 //configure cognito
 Auth.configure({
@@ -48,6 +49,7 @@ const App = () => {
         <>
           <Nav />
           <div className="content">
+            <Stats />
             <Forms />
           </div>
         </>
