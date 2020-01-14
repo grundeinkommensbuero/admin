@@ -7,8 +7,8 @@ const Stats = () => {
   return (
     <>
       {stats &&
-        Object.keys(stats).map(campaign => (
-          <p>
+        Object.keys(stats).map((campaign, index) => (
+          <p key={index}>
             <b>{campaign}</b>: {stats[campaign].withMixed} (mit gemischten
             Ämtern), {stats[campaign].withoutMixed} (ohne gemischte Ämter)
           </p>

@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './index.css';
 import Nav from '../Nav';
 import Auth from '@aws-amplify/auth';
@@ -46,14 +47,22 @@ const App = () => {
   return (
     <div className="app">
       {isAuthenticated && (
-        <>
+        <Router>
           <Nav />
           <div className="content">
-            <Stats />
-            <Forms />
+            <Switch>
+              <Route path="/stats">
+                <Stats />
+              </Route>
+
+              <Route path={['/scan', '/']}>
+                <Forms />
+              </Route>
+            </Switch>
           </div>
-        </>
+        </Router>
       )}
+
       {!isAuthenticated && (
         <div className="signIn">
           <SignIn />
