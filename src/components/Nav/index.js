@@ -8,21 +8,17 @@ const Nav = () => {
 
   return (
     <Menu vertical fixed="left" icon="labeled" size="small">
-      <Link to="/scan">
-        <Menu.Item as="a">
-          <Icon name="list alternate outline" />
-          Unterschriften scannen
-        </Menu.Item>
-      </Link>
+      <Menu.Item as={Link} to="/scan">
+        <Icon name="list alternate outline" />
+        Unterschriften scannen
+      </Menu.Item>
 
-      <Link to="/stats">
-        <Menu.Item as="a">
-          <Icon name="chart bar outline" />
-          Statistiken
-        </Menu.Item>
-      </Link>
+      <Menu.Item as={Link} to="/stats">
+        <Icon name="chart bar outline" />
+        Statistiken
+      </Menu.Item>
 
-      <Menu.Item as="a" onClick={() => signOut()}>
+      <Menu.Item as="div" onClick={() => signOut()}>
         <Icon color="red" name="sign-out" />
         Abmelden
       </Menu.Item>
