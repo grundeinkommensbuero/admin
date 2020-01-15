@@ -62,7 +62,9 @@ const PowerUsersTable = ({ powerUsers, campaign }) => {
         <Table.Body>
           {users.map(user => (
             <Table.Row key={user.cognitoId}>
-              <Table.Cell>{user.email}</Table.Cell>
+              <Table.Cell>
+                {user.stillExists ? user.email : 'Wurde gelöscht'}
+              </Table.Cell>
               <Table.Cell>{user.signatureCount[campaign].received}</Table.Cell>
               <Table.Cell>
                 {user.signatureCount[campaign].scannedByUser}
