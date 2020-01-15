@@ -34,7 +34,7 @@ const getPowerUsers = async token => {
     };
 
     const response = await fetch(
-      `${CONFIG.API.INVOKE_URL}/admin/users?minimum=2`,
+      `${CONFIG.API.INVOKE_URL}/admin/users?minimum=20`,
       request
     );
 
@@ -45,7 +45,7 @@ const getPowerUsers = async token => {
       console.log('Response is not 200', response.status);
     }
   } catch (error) {
-    console.log('Error while updating signature list', error);
+    console.log('Error while getting power users', error);
     return [];
   }
 };

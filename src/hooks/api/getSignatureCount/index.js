@@ -32,6 +32,6 @@ const getSignatureCount = async () => {
       console.log('Response is not 200', response.status);
     }
   } catch (error) {
-    console.log('Error while updating signature list', error);
+    console.log('Error while getting signature count', error);
   }
 };
