@@ -34,7 +34,7 @@ const getPowerUsers = async token => {
     };
 
     const response = await fetch(
-      `${CONFIG.API.INVOKE_URL}/admin/users?minimum=20`,
+      `${CONFIG.API.INVOKE_URL}/admin/users?minimum=15`,
       request
     );
 
