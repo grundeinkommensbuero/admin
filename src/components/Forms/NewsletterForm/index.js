@@ -42,7 +42,7 @@ const NewsletterForm = () => {
 
   //reset email if user was successfully added
   useEffect(() => {
-    if (state === 'saved') {
+    if (state === 'saved' || state === 'userExists') {
       setEmail('');
       //focus on input element again
       document.querySelector('#email-input').focus();
