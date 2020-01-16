@@ -13,6 +13,26 @@ const campaignOptions = [
     text: 'Berlin Veranstaltung',
     value: 'berlin-0',
   },
+  {
+    key: 'brandenburg-1',
+    text: 'Brandenburg 1',
+    value: 'brandenburg-1',
+  },
+  {
+    key: 'hamburg-1',
+    text: 'Hamburg 1',
+    value: 'hamburg-1',
+  },
+  {
+    key: 'berlin-1',
+    text: 'Berlin 1',
+    value: 'berling-1',
+  },
+  {
+    key: 'bremen-1',
+    text: 'Bremen 1',
+    value: 'bremen-1',
+  },
 ];
 
 const NewsletterForm = () => {
