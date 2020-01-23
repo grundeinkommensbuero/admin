@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
-import { useSignatureCount } from '../../hooks/api/getSignatureCount';
-import { usePowerUsers } from '../../hooks/api/getPowerUsers';
+import { useSignatureCount } from '../../../hooks/api/getSignatureCount';
+import { usePowerUsers } from '../../../hooks/api/getPowerUsers';
 import { Table, Dropdown, Header, Loader } from 'semantic-ui-react';
 import campaignOptions from './campaignOptions';
 
-const Stats = () => {
+const SignatureStats = () => {
   const [campaign, setCampaign] = useState(campaignOptions[0].value);
   const stats = useSignatureCount();
   const powerUsers = usePowerUsers();
 
   return (
     <>
+      <Header color="orange">Gesamtanzahl Unterschriften</Header>
+
+      {!stats && <Loader active inline="centered" />}
+      {stats && <CountTable stats={stats} />}
+
+      <Header color="orange">Powersammler*innen</Header>
       <Dropdown
         placeholder="Kampagne auswählen"
         selection
@@ -22,11 +28,6 @@ const Stats = () => {
         label="Kampagne"
       />
 
-      <Header color="orange">Gesamtanzahl Unterschriften</Header>
-      {!stats && <Loader active inline="centered" />}
-      {stats && <CountTable stats={stats} campaign={campaign} />}
-
-      <Header color="orange">Powersammler*innen</Header>
       {!powerUsers && <Loader active inline="centered" />}
       {powerUsers && (
         <PowerUsersTable powerUsers={powerUsers} campaign={campaign} />
@@ -79,29 +80,31 @@ const PowerUsersTable = ({ powerUsers, campaign }) => {
   }
 };
 
-const CountTable = ({ stats, campaign }) => {
-  if (campaign in stats) {
-    return (
-      <Table celled>
-        <Table.Header>
+const CountTable = ({ stats }) => {
+  return (
+    <Table celled definition>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>Kampagne</Table.HeaderCell>
+          <Table.HeaderCell>Inklusive gemischte Ämter</Table.HeaderCell>
+          <Table.HeaderCell>Exklusive gemischte Ämter</Table.HeaderCell>
+          <Table.HeaderCell>
+            Unterschriften von User*in gescannt
+          </Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {Object.keys(stats).map(campaign => (
           <Table.Row>
-            <Table.HeaderCell>Inklusive gemischte Ämter</Table.HeaderCell>
-            <Table.HeaderCell>Exklusive gemischte Ämter</Table.HeaderCell>
-            <Table.HeaderCell>
-              Unterschriften von User*in gescannt
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
+            <Table.Cell>{campaign}</Table.Cell>
             <Table.Cell>{stats[campaign].withMixed}</Table.Cell>
             <Table.Cell>{stats[campaign].withoutMixed}</Table.Cell>
             <Table.Cell>{stats[campaign].scannedByUser}</Table.Cell>
           </Table.Row>
-        </Table.Body>
-      </Table>
-    );
-  } else return <p>Noch keine Daten für diese Kampagne</p>;
+        ))}
+      </Table.Body>
+    </Table>
+  );
 };
 
-export default Stats;
+export default SignatureStats;

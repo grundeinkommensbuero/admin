@@ -7,7 +7,9 @@ import CONFIG from '../../config';
 import SignIn from '../SignIn';
 import AuthContext from '../../context/authentication';
 import Forms from '../Forms';
-import Stats from '../Stats';
+import SignatureStats from '../Stats/SignatureStats';
+import UserStats from '../Stats/UserStats';
+import SignatureListStats from '../Stats/SignatureListStats';
 
 //configure cognito
 Auth.configure({
@@ -52,7 +54,9 @@ const App = () => {
           <div className="content">
             <Switch>
               <Route path="/stats">
-                <Stats />
+                <SignatureListStats />
+                <UserStats />
+                <SignatureStats />
               </Route>
 
               <Route path={['/scan', '/']}>
