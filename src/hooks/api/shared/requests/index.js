@@ -8,7 +8,6 @@ export const getRequest = async endpoint => {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'max-age=1800',
       },
     };
 
