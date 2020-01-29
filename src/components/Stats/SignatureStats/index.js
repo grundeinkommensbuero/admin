@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSignatureCount } from '../../../hooks/api/getSignatureCount';
 import { usePowerUsers } from '../../../hooks/api/getPowerUsers';
 import { Table, Dropdown, Header, Loader } from 'semantic-ui-react';
-import campaignOptions from './campaignOptions';
+import campaignOptions from '../campaignOptions';
 
 const SignatureStats = () => {
   const [campaign, setCampaign] = useState(campaignOptions[0].value);
@@ -75,9 +75,14 @@ const PowerUsersTable = ({ powerUsers, campaign }) => {
         </Table.Body>
       </Table>
     );
-  } else {
-    return <p>Noch keine Powersammler*innen für diese Kampagne</p>;
   }
+
+  return (
+    <>
+      <br />
+      <p>Noch keine Powersammler*innen für diese Kampagne</p>
+    </>
+  );
 };
 
 const CountTable = ({ stats }) => {
