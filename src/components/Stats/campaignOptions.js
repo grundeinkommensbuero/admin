@@ -17,7 +17,7 @@ export default [
   {
     key: 'berlin-1',
     text: 'Berlin 1',
-    value: 'berling-1',
+    value: 'berlin-1',
   },
   {
     key: 'bremen-1',
