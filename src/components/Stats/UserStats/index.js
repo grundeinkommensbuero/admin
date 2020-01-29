@@ -26,6 +26,7 @@ const UserStats = () => {
         label="Kampagne"
       />
 
+      {!stats && <Loader active inline="centered" />}
       {stats && <PledgeMapTable stats={stats} campaign={campaign} />}
     </>
   );
