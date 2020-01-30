@@ -61,8 +61,8 @@ const PowerUsersTable = ({ powerUsers, campaign }) => {
         </Table.Header>
 
         <Table.Body>
-          {users.map(user => (
-            <Table.Row key={user.cognitoId}>
+          {users.map((user, index) => (
+            <Table.Row key={index}>
               <Table.Cell>
                 {user.stillExists ? user.email : 'Wurde gelöscht'}
               </Table.Cell>
@@ -99,8 +99,8 @@ const CountTable = ({ stats }) => {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {Object.keys(stats).map(campaign => (
-          <Table.Row>
+        {Object.keys(stats).map((campaign, index) => (
+          <Table.Row key={index}>
             <Table.Cell>{campaign}</Table.Cell>
             <Table.Cell>{stats[campaign].withMixed}</Table.Cell>
             <Table.Cell>{stats[campaign].withoutMixed}</Table.Cell>

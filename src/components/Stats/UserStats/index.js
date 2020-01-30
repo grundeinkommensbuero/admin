@@ -47,8 +47,8 @@ const UserStatsTable = ({ stats }) => {
       </Table.Header>
 
       <Table.Body>
-        {Object.keys(stats).map(campaign => (
-          <Table.Row>
+        {Object.keys(stats).map((campaign, index) => (
+          <Table.Row key={index}>
             <Table.Cell>{campaign}</Table.Cell>
             <Table.Cell>{stats[campaign].verifiedUsers.count}</Table.Cell>
             <Table.Cell>{stats[campaign].verifiedUsers.signatures}</Table.Cell>
@@ -79,23 +79,25 @@ const PledgeMapTable = ({ stats, campaign }) => {
         </Table.Header>
 
         <Table.Body>
-          {Object.keys(stats[campaign].pledgesMap).map(signatureCount => (
-            <Table.Row>
-              <Table.Cell>{signatureCount}</Table.Cell>
-              <Table.Cell>
-                {stats[campaign].pledgesMap[signatureCount]}
-              </Table.Cell>
-              <Table.Cell>
-                {/* Use .round to cut off after 1 decimal */}
-                {Math.round(
-                  (stats[campaign].pledgesMap[signatureCount] /
-                    stats[campaign].verifiedUsers.count) *
-                    1000
-                ) / 10}
-                %
-              </Table.Cell>
-            </Table.Row>
-          ))}
+          {Object.keys(stats[campaign].pledgesMap).map(
+            (signatureCount, index) => (
+              <Table.Row key={index}>
+                <Table.Cell>{signatureCount}</Table.Cell>
+                <Table.Cell>
+                  {stats[campaign].pledgesMap[signatureCount]}
+                </Table.Cell>
+                <Table.Cell>
+                  {/* Use .round to cut off after 1 decimal */}
+                  {Math.round(
+                    (stats[campaign].pledgesMap[signatureCount] /
+                      stats[campaign].verifiedUsers.count) *
+                      1000
+                  ) / 10}
+                  %
+                </Table.Cell>
+              </Table.Row>
+            )
+          )}
         </Table.Body>
       </Table>
     );

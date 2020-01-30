@@ -31,8 +31,8 @@ const SignatureListStatsTable = ({ stats }) => {
       </Table.Header>
 
       <Table.Body>
-        {Object.keys(stats).map(campaign => (
-          <Table.Row>
+        {Object.keys(stats).map((campaign, index) => (
+          <Table.Row key={index}>
             <Table.Cell>{campaign}</Table.Cell>
             <Table.Cell>{stats[campaign].total.lists}</Table.Cell>
             <Table.Cell>{stats[campaign].total.downloads}</Table.Cell>
