@@ -36,6 +36,8 @@ const updateSignatureList = async (listId, count, mixed, token, setState) => {
 
     if (response.status === 204) {
       setState('saved');
+    } else if (response.status === 404) {
+      setState('notFound');
     } else {
       console.log('response status', response.status);
       setState('error');

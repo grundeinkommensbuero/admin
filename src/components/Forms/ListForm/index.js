@@ -24,6 +24,9 @@ const ListForm = () => {
   return (
     <>
       {state === 'saving' && <p>Wird gespeichert...</p>}
+      {state === 'notFound' && (
+        <p>Es wurde keine Liste mit dieser ID gefunden</p>
+      )}
       {state === 'error' && <p>Fehler!</p>}
       {state === 'saved' && <p>Liste erfolgreich aktualisiert</p>}
 
