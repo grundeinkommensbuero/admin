@@ -93,8 +93,9 @@ const CountTable = ({ stats }) => {
           <Table.HeaderCell>Kampagne</Table.HeaderCell>
           <Table.HeaderCell>Inklusive gemischte Ämter</Table.HeaderCell>
           <Table.HeaderCell>Exklusive gemischte Ämter</Table.HeaderCell>
+          <Table.HeaderCell>Von User*in gescannt</Table.HeaderCell>
           <Table.HeaderCell>
-            Unterschriften von User*in gescannt
+            Berechnet aus angekommen und gescannt
           </Table.HeaderCell>
         </Table.Row>
       </Table.Header>
@@ -105,6 +106,7 @@ const CountTable = ({ stats }) => {
             <Table.Cell>{stats[campaign].withMixed}</Table.Cell>
             <Table.Cell>{stats[campaign].withoutMixed}</Table.Cell>
             <Table.Cell>{stats[campaign].scannedByUser}</Table.Cell>
+            <Table.Cell>{stats[campaign].computed}</Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>
