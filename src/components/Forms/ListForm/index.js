@@ -24,6 +24,8 @@ const ListForm = () => {
   return (
     <>
       {state === 'saving' && <p>Wird gespeichert...</p>}
+      {state === 'countTooHigh' && <p>Anzahl darf nicht höher als 200 sein!</p>}
+
       {state === 'notFound' && (
         <p>Es wurde keine Liste mit dieser ID gefunden</p>
       )}
