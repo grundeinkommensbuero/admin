@@ -53,6 +53,7 @@ const PowerUsersTable = ({ powerUsers, campaign }) => {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>E-Mail</Table.HeaderCell>
+            <Table.HeaderCell>Name</Table.HeaderCell>
             <Table.HeaderCell>Unterschriften angekommen</Table.HeaderCell>
             <Table.HeaderCell>
               Unterschriften von User*in gescannt
@@ -66,6 +67,7 @@ const PowerUsersTable = ({ powerUsers, campaign }) => {
               <Table.Cell>
                 {user.stillExists ? user.email : 'Wurde gelöscht'}
               </Table.Cell>
+              <Table.Cell>{user.username}</Table.Cell>
               <Table.Cell>{user.signatureCount[campaign].received}</Table.Cell>
               <Table.Cell>
                 {user.signatureCount[campaign].scannedByUser}
