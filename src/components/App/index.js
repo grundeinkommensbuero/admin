@@ -10,6 +10,7 @@ import Forms from '../Forms';
 import SignatureStats from '../Stats/SignatureStats';
 import UserStats from '../Stats/UserStats';
 import SignatureListStats from '../Stats/SignatureListStats';
+import Helmet from 'react-helmet';
 
 //configure cognito
 Auth.configure({
@@ -48,18 +49,28 @@ const App = () => {
 
   return (
     <div className="app">
+      <Helmet
+        defaultTitle="Expeditionsadmin"
+        titleTemplate="Expeditionsadmin - %s"
+      />
       {isAuthenticated && (
         <Router>
           <Nav />
           <div className="content">
             <Switch>
               <Route path="/stats">
+                <Helmet>
+                  <title>Statistiken</title>
+                </Helmet>
                 <SignatureListStats />
                 <UserStats />
                 <SignatureStats />
               </Route>
 
               <Route path={['/scan', '/']}>
+                <Helmet>
+                  <title>Unterschriftenlisten Scannen</title>
+                </Helmet>
                 <Forms />
               </Route>
             </Switch>
