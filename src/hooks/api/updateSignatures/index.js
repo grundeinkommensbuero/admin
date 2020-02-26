@@ -3,7 +3,7 @@ import CONFIG from '../../../config';
 import AuthContext from '../../../context/authentication';
 
 export const useUpdateSignatureList = () => {
-  const [state, setState] = useState(null);
+  const [state, setState] = useState({});
 
   //get auth token from global context
   const { token } = useContext(AuthContext);
@@ -16,7 +16,7 @@ export const useUpdateSignatureList = () => {
 };
 
 const updateSignatureList = async (listId, count, mixed, token, setState) => {
-  setState('saving');
+  setState({ state: 'saving' });
   try {
     if (count > 500) {
       setState('countTooHigh');
@@ -37,17 +37,18 @@ const updateSignatureList = async (listId, count, mixed, token, setState) => {
         request
       );
 
-      if (response.status === 204) {
-        setState('saved');
+      if (response.status === 200) {
+        const { isAnonymous } = await response.json();
+        setState({ state: 'saved', isAnonymous });
       } else if (response.status === 404) {
-        setState('notFound');
+        setState({ state: 'notFound' });
       } else {
         console.log('response status', response.status);
-        setState('error');
+        setState({ state: 'error' });
       }
     }
   } catch (error) {
     console.log(error);
-    setState('error');
+    setState({ state: 'error' });
   }
 };
