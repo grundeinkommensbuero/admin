@@ -18,7 +18,7 @@ export const useUpdateSignatureList = () => {
 const updateSignatureList = async (listId, count, mixed, token, setState) => {
   setState('saving');
   try {
-    if (count > 200) {
+    if (count > 500) {
       setState('countTooHigh');
     } else {
       //make api call to set signature count
