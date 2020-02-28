@@ -4,6 +4,7 @@ import { useUpdateSignatureList } from '../../../hooks/api/updateSignatures';
 
 const ListForm = () => {
   //states for the form
+  const [isTyping, setIsTyping] = useState(false);
   const [listId, setListId] = useState('');
   const [count, setCount] = useState(5);
   const [mixed, setMixed] = useState(false);
@@ -17,6 +18,7 @@ const ListForm = () => {
   useEffect(() => {
     if (state.state === 'saved') {
       console.log('resetting list');
+      setIsTyping(false);
       setLastListId(listId);
       setListId('');
       setMixed(false);
@@ -25,6 +27,11 @@ const ListForm = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
+
+  const handleListIdChange = event => {
+    setListId(event.target.value);
+    setIsTyping(true);
+  };
 
   return (
     <>
@@ -37,8 +44,10 @@ const ListForm = () => {
         <p>Es wurde keine Liste mit dieser ID gefunden</p>
       )}
       {state.state === 'error' && <p>Fehler!</p>}
-      {state.state === 'saved' && <p>Liste erfolgreich aktualisiert</p>}
-      {state.isAnonymous && (
+      {state.state === 'saved' && !isTyping && (
+        <p>Liste erfolgreich aktualisiert</p>
+      )}
+      {state.isAnonymous && !isTyping && (
         <p>
           Die Liste ist anonym. Wenn die Anzahl mehr als 20 betrug, schicke
           bitte eine Mail, indem du{' '}
@@ -62,7 +71,7 @@ const ListForm = () => {
             placeholder="Listen ID"
             value={listId}
             width={12}
-            onChange={event => setListId(event.target.value)}
+            onChange={event => handleListIdChange(event)}
           />
           <Form.Input
             label="Anzahl"
