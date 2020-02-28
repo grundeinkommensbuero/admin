@@ -49,8 +49,10 @@ const ListForm = () => {
       )}
       {state.isAnonymous && !isTyping && (
         <p>
-          Die Liste ist anonym. Wenn die Anzahl mehr als 20 betrug, schicke
-          bitte eine Mail, indem du{' '}
+          Die Liste wurde anonym heruntergeladen und kann deshalb keiner
+          E-Mail-Adresse zugeordnet werden. Wenn die Anzahl der Unterschriften,
+          die dieser Listen-Id zugehörig sind, mehr als 20 beträgt, schicke
+          bitte eine Mail an Valentin, indem du{' '}
           <a
             href={`mailto:valentin@expedition-grundeinkommen.de?subject=Anonyme%20Liste%20wurde%20gescannt&body=Es%20wurde%20eine%20anonyme%20Liste%20gescannt%3A%0D%0AListen%20ID%3A%20${lastListId}%0D%0AAnzahl%20Unterschriften%3A%20${count}%0D%0A%0D%0ABitte%20ausf%C3%BCllen!%0D%0AEmail%3A%20...%0D%0AName%20(falls%20Email%20nicht%20vorhanden)%3A%20...%0D%0A`}
             target="_blank"
@@ -58,8 +60,10 @@ const ListForm = () => {
           >
             hier klickst
           </a>
-          . Bitte trage den Namen und wenn vorhanden die E-Mail-Adresse des
-          Absenders der Liste ein.
+          . Bitte trage in der Mail den Namen und wenn vorhanden die
+          E-Mail-Adresse des Absenders oder der Absenderin der Listen ein. Falls
+          der Absender oder die Absenderin der Listen nicht mehr bekannt ist,
+          kann diese Nachricht ignoriert werden.
         </p>
       )}
 
