@@ -9,7 +9,7 @@ const UserStats = () => {
 
   return (
     <>
-      <Header color="orange">User*innen von Pledge</Header>
+      <Header color="orange">Anzahl User*innen</Header>
 
       {!stats && <Loader active inline="centered" />}
       {stats && <UserStatsTable stats={stats} />}
