@@ -38,8 +38,8 @@ const updateSignatureList = async (listId, count, mixed, token, setState) => {
       );
 
       if (response.status === 200) {
-        const { isAnonymous } = await response.json();
-        setState({ state: 'saved', isAnonymous });
+        const { isAnonymous, mailMissing } = await response.json();
+        setState({ state: 'saved', isAnonymous, mailMissing });
       } else if (response.status === 404) {
         setState({ state: 'notFound' });
       } else {
