@@ -77,7 +77,7 @@ const ListForm = () => {
           Fehlers keine E-Mail-Adresse angegeben hat. Schicke bitte eine Mail an
           Valentin, indem du{' '}
           <a
-            href={` mailto:valentin@expedition-grundeinkommen.de?subject=Liste%20von%20Briefaktion%20gescannt&body=Liste%20von%20Briefaktion%20ohne%20E-Mail-Adresse%0D%0AListen%20ID%3A%20%24%7BlastListId%7D%0D%0AE-Mail-Adresse%3A%20...`}
+            href={`mailto:valentin@expedition-grundeinkommen.de?subject=Liste%20von%20Briefaktion%20gescannt&body=Liste%20von%20Briefaktion%20ohne%20E-Mail-Adresse%0D%0AListen%20ID%3A%20${lastListId}%0D%0AE-Mail-Adresse%3A%20...`}
             target="_blank"
             rel="noopener noreferrer"
           >
