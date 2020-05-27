@@ -36,3 +36,7 @@ i {
 .signIn {
   padding: 17rem 35rem;
 }
+
+table {
+  margin: 1em 0 4em 0 !important;
+}
