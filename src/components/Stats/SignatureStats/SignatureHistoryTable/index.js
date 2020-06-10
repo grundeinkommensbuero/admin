@@ -14,6 +14,12 @@ const SignatureHistoryTable = ({ history, campaign }) => {
         <Table.HeaderCell>
           User*innen, die Unterschriften eingetragen haben
         </Table.HeaderCell>
+        <Table.HeaderCell>
+          Von User*innen eingetragene Unterschriften
+        </Table.HeaderCell>
+        <Table.HeaderCell>
+          Listen, für die von User*in eingetragen wurde
+        </Table.HeaderCell>
         <Table.HeaderCell>Angekommene Unterschriften</Table.HeaderCell>
       </Table.Header>
       <Table.Body>
@@ -21,7 +27,9 @@ const SignatureHistoryTable = ({ history, campaign }) => {
           <Table.Row key={element.day}>
             <Table.Cell>{element.day}</Table.Cell>
             <Table.Cell>{element.downloads}</Table.Cell>
-            <Table.Cell>{element.scans}</Table.Cell>
+            <Table.Cell>{element.usersWhoScanned}</Table.Cell>
+            <Table.Cell>{element.scanned}</Table.Cell>
+            <Table.Cell>{element.scannedLists}</Table.Cell>
             <Table.Cell>{element.received}</Table.Cell>
           </Table.Row>
         ))}
