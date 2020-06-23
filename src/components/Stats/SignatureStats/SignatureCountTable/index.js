@@ -13,7 +13,7 @@ const SignatureCountTable = ({ stats }) => {
           <Table.HeaderCell>
             Berechnet aus angekommen und gescannt
           </Table.HeaderCell>
-          <Table.HeaderCell>Ab 27.02 angekommen</Table.HeaderCell>
+          <Table.HeaderCell>Inklusive Contentfuladdition</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -24,7 +24,7 @@ const SignatureCountTable = ({ stats }) => {
             <Table.Cell>{stats[campaign].withoutMixed}</Table.Cell>
             <Table.Cell>{stats[campaign].scannedByUser}</Table.Cell>
             <Table.Cell>{stats[campaign].computed}</Table.Cell>
-            <Table.Cell>{stats[campaign].from27}</Table.Cell>
+            <Table.Cell>{stats[campaign].withContentful}</Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>
