@@ -26,7 +26,7 @@ const campaignOptions = [
   {
     key: 'berlin-1',
     text: 'Berlin 1',
-    value: 'berling-1',
+    value: 'berlin-1',
   },
   {
     key: 'bremen-1',
@@ -74,7 +74,7 @@ const NewsletterForm = () => {
             placeholder="E-Mail-Adresse"
             width={12}
             value={email}
-            onChange={event => setEmail(event.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
           />
           <Form.Button className="inlineButton" type="submit">
             Eintragen
