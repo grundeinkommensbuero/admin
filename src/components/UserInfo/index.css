@@ -1,0 +1,11 @@
+@import '../../vars.css';
+
+.clickableText {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--linkColor);
+}
+
+.userInfoTable {
+  overflow-x: scroll;
+}

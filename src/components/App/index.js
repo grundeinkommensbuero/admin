@@ -6,11 +6,12 @@ import Auth from '@aws-amplify/auth';
 import CONFIG from '../../config';
 import SignIn from '../SignIn';
 import AuthContext from '../../context/authentication';
-import Forms from '../Forms';
+import ScanForms from '../ScanForms';
 import SignatureStats from '../Stats/SignatureStats';
 import UserStats from '../Stats/UserStats';
 import SignatureListStats from '../Stats/SignatureListStats';
 import Helmet from 'react-helmet';
+import UserInfo from '../UserInfo';
 
 //configure cognito
 Auth.configure({
@@ -67,11 +68,18 @@ const App = () => {
                 <SignatureStats />
               </Route>
 
+              <Route path="/user-info">
+                <Helmet>
+                  <title>User*innen-Suche</title>
+                </Helmet>
+                <UserInfo />
+              </Route>
+
               <Route path={['/scan', '/']}>
                 <Helmet>
                   <title>Unterschriftenlisten Scannen</title>
                 </Helmet>
-                <Forms />
+                <ScanForms />
               </Route>
             </Switch>
           </div>

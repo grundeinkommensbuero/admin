@@ -14,7 +14,7 @@ export const usePowerUsers = () => {
     // Only proceed if token is not null and if users is not set
     // (because we only want to do it once)
     if (token && !users) {
-      getPowerUsers(token).then(data => setUsers(data.users));
+      getPowerUsers(token).then((data) => setUsers(data.users));
     }
   }, [token, users]); // dependency array to call use effect when token was set
 
@@ -22,7 +22,7 @@ export const usePowerUsers = () => {
 };
 
 //gets stats (count of signatures) for each campaign
-const getPowerUsers = async token => {
+const getPowerUsers = async (token) => {
   try {
     const request = {
       method: 'GET',
@@ -34,7 +34,7 @@ const getPowerUsers = async token => {
     };
 
     const response = await fetch(
-      `${CONFIG.API.INVOKE_URL}/admin/users?minimum=10`,
+      `${CONFIG.API.INVOKE_URL}/admin/users?minimum=10&filter=powerusers`,
       request
     );
 

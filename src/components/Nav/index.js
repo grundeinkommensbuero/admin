@@ -18,6 +18,11 @@ const Nav = () => {
         Statistiken
       </Menu.Item>
 
+      <Menu.Item as={Link} to="/user-info">
+        <Icon name="address book outline" />
+        User*innen-Suche
+      </Menu.Item>
+
       <Menu.Item as="div" onClick={() => signOut()}>
         <Icon color="red" name="sign-out" />
         Abmelden
