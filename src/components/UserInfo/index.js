@@ -1,24 +1,61 @@
 import React, { useState } from 'react';
-import { Form, Loader, Table } from 'semantic-ui-react';
+import { Form, Loader, Table, Select } from 'semantic-ui-react';
 import { useSearchUser } from '../../hooks/api/searchUser';
 import './index.css';
 
+const searchOptions = [
+  { key: 'listId', text: 'Listen Id', value: 'listId' },
+  { key: 'email', text: 'E-Mail-Adresse', value: 'email' },
+];
+
 const UserInfo = () => {
   const [email, setEmail] = useState('');
+  const [listId, setListId] = useState('');
+  const [searchKey, setSearchKey] = useState('');
   const [state, users, searchUsers] = useSearchUser();
   const [listLimit, setListLimit] = useState(10);
 
+  const handleSearchKeyChange = (value) => {
+    setSearchKey(value);
+
+    setEmail('');
+    setListId('');
+  };
+
   return (
     <>
-      <Form onSubmit={() => searchUsers(email)}>
+      <Form onSubmit={() => searchUsers({ email, listId })}>
         <Form.Group>
-          <Form.Input
-            label="Suche nach E-Mail"
-            placeholder="E-Mail-Adresse"
-            value={email}
-            width={10}
-            onChange={(event) => setEmail(event.target.value)}
-          ></Form.Input>
+          <Form.Dropdown
+            placeholder="Listen Id/E-Mail"
+            fluid
+            selection
+            width={6}
+            options={searchOptions}
+            onChange={(event, data) => handleSearchKeyChange(data.value)}
+            label="Nach Listen Id oder E-Mail-Adresse suchen"
+          />
+
+          {searchKey === 'email' && (
+            <Form.Input
+              label="Suche nach E-Mail"
+              placeholder="E-Mail-Adresse"
+              value={email}
+              width={6}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          )}
+
+          {searchKey === 'listId' && (
+            <Form.Input
+              label="Suche nach Listen Id"
+              placeholder="Listen Id"
+              value={listId}
+              width={6}
+              onChange={(event) => setListId(event.target.value)}
+            />
+          )}
+
           <Form.Button className="inlineButton" type="submit">
             Suchen
           </Form.Button>

@@ -12,12 +12,12 @@ export const useSearchUser = () => {
   return [
     state,
     users,
-    (email) => searchUser(email, token, setState, setUsers),
+    (searchParams) => searchUser(searchParams, token, setState, setUsers),
   ];
 };
 
 // makes an api call to create a user (in cognito and dynamo)
-const searchUser = async (email, token, setState, setUsers) => {
+const searchUser = async ({ email, listId }, token, setState, setUsers) => {
   setState('loading');
 
   try {
@@ -30,8 +30,10 @@ const searchUser = async (email, token, setState, setUsers) => {
       },
     };
 
+    const urlParams = email !== '' ? `email=${email}` : `listId=${listId}`;
+
     const response = await fetch(
-      `${CONFIG.API.INVOKE_URL}/admin/users?email=${email}`,
+      `${CONFIG.API.INVOKE_URL}/admin/users?${urlParams}`,
       request
     );
 
