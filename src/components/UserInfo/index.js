@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Loader, Table, Select } from 'semantic-ui-react';
+import { Form, Loader, Table } from 'semantic-ui-react';
 import { useSearchUser } from '../../hooks/api/searchUser';
 import './index.css';
 
