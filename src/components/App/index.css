@@ -40,3 +40,11 @@ i {
 table {
   margin: 1em 0 4em 0 !important;
 }
+
+.inlineButton {
+  margin-top: 1.7rem !important;
+}
+
+.inlineCheckbox {
+  margin-top: 2.2rem !important;
+}

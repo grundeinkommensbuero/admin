@@ -1,13 +1,5 @@
 @import '../../vars.css';
 
-.inlineButton {
-  margin-top: 1.7rem !important;
-}
-
-.inlineCheckbox {
-  margin-top: 2.2rem !important;
-}
-
 label {
   color: var(--secondaryColor) !important;
 }
