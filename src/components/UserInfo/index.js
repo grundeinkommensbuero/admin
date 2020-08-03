@@ -102,7 +102,7 @@ const UserInfo = () => {
         </>
       )}
 
-      {users && (
+      {state === 'success' && users && (
         <>
           <CreateListForm userId={users[0].cognitoId} />
 
