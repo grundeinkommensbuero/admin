@@ -38,18 +38,26 @@ const SignatureStats = () => {
 
       <Header color="orange">Historie ({campaign})</Header>
       {!history && <Loader active inline="centered" />}
-      {history && (
-        <>
-          <SignatureHistoryTable history={history} campaign={campaign} />
-          <SignatureHistoryChart history={history} campaign={campaign} />
-        </>
-      )}
+      {history && <SignatureHistory history={history} campaign={campaign} />}
 
       <Header color="orange">Powersammler*innen ({campaign})</Header>
       {!powerUsers && <Loader active inline="centered" />}
       {powerUsers && (
         <PowerUsersTable powerUsers={powerUsers} campaign={campaign} />
       )}
+    </>
+  );
+};
+
+const SignatureHistory = ({ history, campaign }) => {
+  if (!(campaign in history)) {
+    return <p>Noch keine Historie für dieses Bundesland</p>;
+  }
+
+  return (
+    <>
+      <SignatureHistoryTable campaignHistory={history[campaign]} />
+      <SignatureHistoryChart campaignHistory={history[campaign]} />
     </>
   );
 };
