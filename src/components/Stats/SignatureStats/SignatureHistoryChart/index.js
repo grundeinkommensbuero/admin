@@ -12,15 +12,11 @@ import {
 import './index.css';
 import '../../../../vars.css';
 
-const SignatureHistoryChart = ({ history, campaign }) => {
-  if (!(campaign in history)) {
-    return <p>Noch keine Historie für dieses Bundesland</p>;
-  }
-
+const SignatureHistoryChart = ({ campaignHistory }) => {
   return (
     <div className="historyChart">
       <ResponsiveContainer width="100%" aspect={4.0 / 3.0}>
-        <LineChart data={history[campaign]}>
+        <LineChart data={campaignHistory}>
           <Line
             type="monotone"
             dataKey="received"

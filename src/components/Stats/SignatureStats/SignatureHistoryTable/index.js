@@ -1,11 +1,7 @@
 import { Table } from 'semantic-ui-react';
 import React from 'react';
 
-const SignatureHistoryTable = ({ history, campaign }) => {
-  if (!(campaign in history)) {
-    return <p>Noch keine Historie für dieses Bundesland</p>;
-  }
-
+const SignatureHistoryTable = ({ campaignHistory }) => {
   return (
     <Table celled definition>
       <Table.Header>
@@ -23,7 +19,7 @@ const SignatureHistoryTable = ({ history, campaign }) => {
         <Table.HeaderCell>Angekommene Unterschriften</Table.HeaderCell>
       </Table.Header>
       <Table.Body>
-        {history[campaign].map(element => (
+        {campaignHistory.map((element) => (
           <Table.Row key={element.day}>
             <Table.Cell>{element.day}</Table.Cell>
             <Table.Cell>{element.downloads}</Table.Cell>
