@@ -7,6 +7,7 @@ import SignatureCountTable from './SignatureCountTable';
 import PowerUsersTable from './PowerUsersTable';
 import { useSignatureHistory } from '../../../hooks/api/getSignatureHistory';
 import SignatureHistoryTable from './SignatureHistoryTable';
+import SignatureHistoryChart from './SignatureHistoryChart';
 
 const SignatureStats = () => {
   const [campaign, setCampaign] = useState(campaignOptions[0].value);
@@ -38,7 +39,10 @@ const SignatureStats = () => {
       <Header color="orange">Historie ({campaign})</Header>
       {!history && <Loader active inline="centered" />}
       {history && (
-        <SignatureHistoryTable history={history} campaign={campaign} />
+        <>
+          <SignatureHistoryTable history={history} campaign={campaign} />
+          <SignatureHistoryChart history={history} campaign={campaign} />
+        </>
       )}
 
       <Header color="orange">Powersammler*innen ({campaign})</Header>
