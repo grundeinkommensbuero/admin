@@ -55,32 +55,26 @@ const UserStatsTable = ({ stats }) => {
           (campaign, index) =>
             campaign !== 'totalCount' && (
               <Table.Row key={index}>
-                <>
-                  <Table.Cell>{campaign}</Table.Cell>
-                  <Table.Cell>{stats[campaign].verifiedUsers.count}</Table.Cell>
-                  <Table.Cell>
-                    {stats[campaign].verifiedUsers.pledges}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {stats[campaign].verifiedUsers.signatures}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {stats[campaign].usersWithNewsletterConsent.count}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {stats[campaign].usersWithNewsletterConsent.signatures}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {stats[campaign].verifiedUsers.downloaders}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {stats[campaign].unverifiedUsers.count}
-                  </Table.Cell>
-                </>
+                <Table.Cell>{campaign}</Table.Cell>
+                <Table.Cell>{stats[campaign].verifiedUsers.count}</Table.Cell>
+                <Table.Cell>{stats[campaign].verifiedUsers.pledges}</Table.Cell>
+                <Table.Cell>
+                  {stats[campaign].verifiedUsers.signatures}
+                </Table.Cell>
+                <Table.Cell>
+                  {stats[campaign].usersWithNewsletterConsent.count}
+                </Table.Cell>
+                <Table.Cell>
+                  {stats[campaign].usersWithNewsletterConsent.signatures}
+                </Table.Cell>
+                <Table.Cell>
+                  {stats[campaign].verifiedUsers.downloaders}
+                </Table.Cell>
+                <Table.Cell>{stats[campaign].unverifiedUsers.count}</Table.Cell>
               </Table.Row>
             )
         )}
-        <>
+        <Table.Row>
           <Table.Cell>Gesamt</Table.Cell>
           <Table.Cell>{stats.totalCount.verifiedUsers}</Table.Cell>
           <Table.Cell></Table.Cell>
@@ -89,7 +83,7 @@ const UserStatsTable = ({ stats }) => {
           <Table.Cell></Table.Cell>
           <Table.Cell></Table.Cell>
           <Table.Cell>{stats.totalCount.unverifiedUsers}</Table.Cell>
-        </>
+        </Table.Row>
       </Table.Body>
     </Table>
   );

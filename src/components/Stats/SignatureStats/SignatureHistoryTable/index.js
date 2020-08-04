@@ -5,18 +5,20 @@ const SignatureHistoryTable = ({ campaignHistory }) => {
   return (
     <Table celled definition>
       <Table.Header>
-        <Table.HeaderCell>Tag</Table.HeaderCell>
-        <Table.HeaderCell>Unterschriftendownloads</Table.HeaderCell>
-        <Table.HeaderCell>
-          User*innen, die Unterschriften eingetragen haben
-        </Table.HeaderCell>
-        <Table.HeaderCell>
-          Von User*innen eingetragene Unterschriften
-        </Table.HeaderCell>
-        <Table.HeaderCell>
-          Listen, für die von User*in eingetragen wurde
-        </Table.HeaderCell>
-        <Table.HeaderCell>Angekommene Unterschriften</Table.HeaderCell>
+        <Table.Row>
+          <Table.HeaderCell>Tag</Table.HeaderCell>
+          <Table.HeaderCell>Unterschriftendownloads</Table.HeaderCell>
+          <Table.HeaderCell>
+            User*innen, die Unterschriften eingetragen haben
+          </Table.HeaderCell>
+          <Table.HeaderCell>
+            Von User*innen eingetragene Unterschriften
+          </Table.HeaderCell>
+          <Table.HeaderCell>
+            Listen, für die von User*in eingetragen wurde
+          </Table.HeaderCell>
+          <Table.HeaderCell>Angekommene Unterschriften</Table.HeaderCell>
+        </Table.Row>
       </Table.Header>
       <Table.Body>
         {campaignHistory.map((element) => (
