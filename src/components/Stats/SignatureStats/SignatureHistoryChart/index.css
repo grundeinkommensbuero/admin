@@ -1,0 +1,7 @@
+@import '../../../../vars.css';
+
+.historyChart {
+  background-color: var(--secondaryColor);
+  padding: 2rem;
+  color: rgba(0, 0, 0, 0.87);
+}
