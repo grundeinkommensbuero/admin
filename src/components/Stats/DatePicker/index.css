@@ -1,0 +1,7 @@
+@import '../../../vars.css';
+
+.datepicker {
+  color: var(--primaryColor);
+  display: flex;
+  margin: 2rem 0;
+}

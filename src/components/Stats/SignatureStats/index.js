@@ -8,12 +8,13 @@ import PowerUsersTable from './PowerUsersTable';
 import { useSignatureHistory } from '../../../hooks/api/getSignatureHistory';
 import SignatureHistoryTable from './SignatureHistoryTable';
 import SignatureHistoryChart from './SignatureHistoryChart';
+import DatePicker from '../DatePicker';
 
 const SignatureStats = () => {
   const [campaign, setCampaign] = useState(campaignOptions[0].value);
   const stats = useSignatureCount();
   const powerUsers = usePowerUsers();
-  const history = useSignatureHistory();
+  const [history, reloadHistory] = useSignatureHistory();
 
   return (
     <>
@@ -38,7 +39,13 @@ const SignatureStats = () => {
 
       <Header color="orange">Historie ({campaign})</Header>
       {!history && <Loader active inline="centered" />}
-      {history && <SignatureHistory history={history} campaign={campaign} />}
+      {history && (
+        <SignatureHistory
+          history={history}
+          campaign={campaign}
+          updateData={reloadHistory}
+        />
+      )}
 
       <Header color="orange">Powersammler*innen ({campaign})</Header>
       {!powerUsers && <Loader active inline="centered" />}
@@ -49,13 +56,14 @@ const SignatureStats = () => {
   );
 };
 
-const SignatureHistory = ({ history, campaign }) => {
+const SignatureHistory = ({ history, campaign, updateData }) => {
   if (!(campaign in history)) {
     return <p>Noch keine Historie für dieses Bundesland</p>;
   }
 
   return (
     <>
+      <DatePicker updateData={updateData} />
       <SignatureHistoryTable campaignHistory={history[campaign]} />
       <SignatureHistoryChart campaignHistory={history[campaign]} />
     </>
