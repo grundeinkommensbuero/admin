@@ -30,7 +30,7 @@ const searchUser = async ({ email, listId }, token, setState, setUsers) => {
       },
     };
 
-    const urlParams = email !== '' ? `email=${email}` : `listId=${listId}`;
+    const urlParams = email ? `email=${email}` : `listId=${listId}`;
 
     const response = await fetch(
       `${CONFIG.API.INVOKE_URL}/admin/users?${urlParams}`,

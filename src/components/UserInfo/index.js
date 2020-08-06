@@ -4,11 +4,6 @@ import { useSearchUser } from '../../hooks/api/searchUser';
 import './index.css';
 import { useCreateSignatureList } from '../../hooks/api/createSignatureList';
 
-const searchOptions = [
-  { key: 'listId', text: 'Listen Id', value: 'listId' },
-  { key: 'email', text: 'E-Mail-Adresse', value: 'email' },
-];
-
 const campaignOptions = [
   {
     key: 'schleswig-holstein-1',
@@ -40,62 +35,64 @@ const campaignOptions = [
 const UserInfo = () => {
   const [email, setEmail] = useState('');
   const [listId, setListId] = useState('');
-  const [searchKey, setSearchKey] = useState('');
+  const [searchKey, setSearchKey] = useState('email');
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [state, users, searchUsers] = useSearchUser();
   const [listLimit, setListLimit] = useState(10);
 
-  const handleSearchKeyChange = (value) => {
-    setSearchKey(value);
+  const handleSubmit = () => {
+    setHasSubmitted(true);
 
-    setEmail('');
-    setListId('');
+    console.log({ searchKey });
+    if (searchKey === 'email') {
+      searchUsers({ email });
+    } else {
+      searchUsers({ listId });
+    }
   };
 
   return (
     <>
-      <Form onSubmit={() => searchUsers({ email, listId })}>
+      <Form onSubmit={handleSubmit}>
         <Form.Group>
-          <Form.Dropdown
-            placeholder="Listen Id/E-Mail"
-            fluid
-            selection
+          <Form.Input
+            label="Suche nach E-Mail"
+            placeholder="E-Mail-Adresse"
+            value={email}
             width={6}
-            options={searchOptions}
-            onChange={(event, data) => handleSearchKeyChange(data.value)}
-            label="Nach Listen Id oder E-Mail-Adresse suchen"
+            onChange={(event) => {
+              setEmail(event.target.value);
+              setSearchKey('email');
+              setHasSubmitted(false);
+            }}
           />
 
-          {searchKey === 'email' && (
-            <Form.Input
-              label="Suche nach E-Mail"
-              placeholder="E-Mail-Adresse"
-              value={email}
-              width={6}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          )}
-
-          {searchKey === 'listId' && (
-            <Form.Input
-              label="Suche nach Listen Id"
-              placeholder="Listen Id"
-              value={listId}
-              width={6}
-              onChange={(event) => setListId(event.target.value)}
-            />
-          )}
+          <Form.Input
+            label="Suche nach Listen Id"
+            placeholder="Listen Id"
+            value={listId}
+            width={6}
+            onChange={(event) => {
+              setListId(event.target.value);
+              setSearchKey('listId');
+              setHasSubmitted(false);
+            }}
+          />
 
           <Form.Button className="inlineButton" type="submit">
-            Suchen
+            Suche {searchKey === 'email' ? 'nach E-Mail' : 'nach Listen Id'}
           </Form.Button>
         </Form.Group>
       </Form>
 
       {state === 'loading' && <Loader active inline="centered" />}
 
-      {state === 'noUsersFound' && email !== '' && 'Kein*e User*in gefunden'}
+      {hasSubmitted &&
+        state === 'noUsersFound' &&
+        searchKey === 'email' &&
+        'Kein*e User*in gefunden'}
 
-      {state === 'noUsersFound' && listId !== '' && (
+      {hasSubmitted && state === 'noUsersFound' && searchKey === 'listId' && (
         <>
           <p>Kein*e User*in gefunden. Die Liste war wohl anonym.</p>
           <CreateListForm />
