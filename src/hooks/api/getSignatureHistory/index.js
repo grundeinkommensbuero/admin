@@ -16,7 +16,6 @@ export const useSignatureHistory = () => {
     state,
     history,
     (dates) => {
-      console.log({ dates });
       setState('loading');
       getSignatureHistory(dates).then((data) => {
         setHistory(data.history);
