@@ -14,7 +14,7 @@ const SignatureStats = () => {
   const [campaign, setCampaign] = useState(campaignOptions[0].value);
   const stats = useSignatureCount();
   const powerUsers = usePowerUsers();
-  const [history, reloadHistory] = useSignatureHistory();
+  const [state, history, reloadHistory] = useSignatureHistory();
 
   return (
     <>
@@ -38,7 +38,7 @@ const SignatureStats = () => {
       />
 
       <Header color="orange">Historie ({campaign})</Header>
-      {!history && <Loader active inline="centered" />}
+      {state === 'loading' && <Loader active inline="centered" />}
       {history && (
         <SignatureHistory
           history={history}

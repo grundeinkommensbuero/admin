@@ -2,14 +2,26 @@ import { useState } from 'react';
 import CONFIG from '../../../config';
 
 export const useSignatureHistory = () => {
-  const [stats, setStats] = useState(() => {
-    getSignatureHistory({}).then((data) => setStats(data.history));
+  const [state, setState] = useState();
+
+  const [history, setHistory] = useState(() => {
+    setState('loading');
+    getSignatureHistory({}).then((data) => {
+      setHistory(data.history);
+      setState('success');
+    });
   });
 
   return [
-    stats,
-    (dates) =>
-      getSignatureHistory(dates).then((data) => setStats(data.history)),
+    state,
+    history,
+    (dates) => {
+      setState('loading');
+      getSignatureHistory(dates).then((data) => {
+        setHistory(data.history);
+        setState('success');
+      });
+    },
   ];
 };
 
