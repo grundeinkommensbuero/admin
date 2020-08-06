@@ -8,11 +8,13 @@ const DatePicker = ({ updateData }) => {
 
   useEffect(() => {
     // Only update call function if start and end is set
-    if (currentRange && currentRange.length === 2) {
-      updateData({
-        startDate: currentRange[0].toISOString().substring(0, 10), // we only want to pass YYYY-MM-DD
-        endDate: currentRange[1].toISOString().substring(0, 10),
-      });
+    if (currentRange) {
+      if (currentRange.length === 2) {
+        updateData({
+          startDate: currentRange[0].toISOString().substring(0, 10), // we only want to pass YYYY-MM-DD
+          endDate: currentRange[1].toISOString().substring(0, 10),
+        });
+      }
     } else {
       // Range was cleared --> update history without params
       updateData({});
