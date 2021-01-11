@@ -37,6 +37,7 @@ const campaignOptions = [
 
 const NewsletterForm = () => {
   const [email, setEmail] = useState('');
+  const [extraInfo, setExtraInfo] = useState(false);
   const [campaign, setCampaign] = useState(campaignOptions[0].value);
   const [state, createUser] = useCreateUser();
 
@@ -54,10 +55,14 @@ const NewsletterForm = () => {
       {state === 'saving' && <p>Wird gespeichert...</p>}
       {state === 'saved' && <p>User*in erfolgreich eingetragen</p>}
       {state === 'invalidEmail' && <p>Ungültige E-Mail-Adresse</p>}
-      {state === 'userExists' && <p>User*in existiert bereits</p>}
+      {state === 'userExists' && (
+        <p>
+          User*in existiert bereits, Newslettereinstellungen wurden geupdated
+        </p>
+      )}
       {state === 'error' && <p>Fehler!</p>}
 
-      <Form onSubmit={() => createUser(email, campaign)}>
+      <Form onSubmit={() => createUser(email, campaign, extraInfo)}>
         <Form.Dropdown
           placeholder="Kampagne auswählen"
           fluid
@@ -75,6 +80,12 @@ const NewsletterForm = () => {
             width={12}
             value={email}
             onChange={(event) => setEmail(event.target.value)}
+          />
+          <Form.Checkbox
+            className="inlineCheckbox"
+            label="Aktiv"
+            name="extraInfo"
+            onClick={(event) => setExtraInfo(!extraInfo)}
           />
           <Form.Button className="inlineButton" type="submit">
             Eintragen

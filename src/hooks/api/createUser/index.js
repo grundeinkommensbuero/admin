@@ -10,12 +10,13 @@ export const useCreateUser = () => {
 
   return [
     state,
-    (email, campaignCode) => createUser(email, campaignCode, token, setState),
+    (email, campaignCode, extraInfo) =>
+      createUser(email, campaignCode, extraInfo, token, setState),
   ];
 };
 
 //makes an api call to create a user (in cognito and dynamo)
-const createUser = async (email, campaignCode, token, setState) => {
+const createUser = async (email, campaignCode, extraInfo, token, setState) => {
   setState('saving');
   try {
     const request = {
@@ -25,7 +26,7 @@ const createUser = async (email, campaignCode, token, setState) => {
         'Content-Type': 'application/json',
         Authorization: token,
       },
-      body: JSON.stringify({ email, campaignCode }),
+      body: JSON.stringify({ email, campaignCode, extraInfo }),
     };
 
     const response = await fetch(
@@ -35,6 +36,8 @@ const createUser = async (email, campaignCode, token, setState) => {
 
     if (response.status === 201) {
       setState('saved');
+    } else if (response.status === 200) {
+      setState('userExists');
     } else {
       const { error } = await response.json();
       console.log('error', response.status, error);
@@ -42,9 +45,6 @@ const createUser = async (email, campaignCode, token, setState) => {
       if (error.code === 'InvalidParameterException') {
         //btw: api returns 400 if email is invalid
         setState('invalidEmail');
-      } else if (error.code === 'UsernameExistsException') {
-        //btw: api returns 200 if user exists
-        setState('userExists');
       } else {
         setState('error');
       }
