@@ -31,7 +31,7 @@ const ListForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
-  const handleListIdChange = event => {
+  const handleListIdChange = (event) => {
     setListId(event.target.value);
     setIsTyping(true);
   };
@@ -96,7 +96,7 @@ const ListForm = () => {
             placeholder="Listen ID"
             value={listId}
             width={12}
-            onChange={event => handleListIdChange(event)}
+            onChange={(event) => handleListIdChange(event)}
           />
           <Form.Input
             label="Anzahl"
@@ -104,20 +104,11 @@ const ListForm = () => {
             type="number"
             width={4}
             value={count}
-            onChange={event => setCount(event.target.value)}
+            onChange={(event) => setCount(event.target.value)}
           />
         </Form.Group>
 
         <Form.Group>
-          <Form.Checkbox
-            width={12}
-            className="inlineCheckbox"
-            label="Mehrere Ämter"
-            checked={mixed}
-            onChange={() => {
-              setMixed(!mixed);
-            }}
-          />
           <Form.Button width={4} className="inlineButton" type="submit">
             Speichern
           </Form.Button>
