@@ -63,9 +63,9 @@ const App = () => {
                 <Helmet>
                   <title>Statistiken</title>
                 </Helmet>
+                <SignatureStats />
                 <SignatureListStats />
                 <UserStats />
-                <SignatureStats />
               </Route>
 
               <Route path="/user-info">
