@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './index.css';
+import 'semantic-ui-css/semantic.min.css';
 import Nav from '../Nav';
 import Auth from '@aws-amplify/auth';
 import CONFIG from '../../config';
