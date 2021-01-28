@@ -3,6 +3,6 @@
  */
 
 import App from './components/App';
-import AuthProvider from './context/authentication';
+import { AuthProvider } from './context/authentication';
 
 export { App, AuthProvider };

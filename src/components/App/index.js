@@ -51,10 +51,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <Helmet
-        defaultTitle="Expeditionsadmin"
-        titleTemplate="Expeditionsadmin - %s"
-      />
+      <Helmet defaultTitle="Admin Panel" titleTemplate="Admin Panel - %s" />
       {isAuthenticated && (
         <Router>
           <Nav />

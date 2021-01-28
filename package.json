@@ -1,6 +1,6 @@
 {
   "name": "@xbge/admin-panel",
-  "version": "0.0.5",
+  "version": "0.0.9",
   "main": "dist/module.js",
   "babel": {
     "presets": [
@@ -12,11 +12,11 @@
     "@testing-library/jest-dom": "^5.11.2",
     "@testing-library/react": "^10.4.7",
     "@testing-library/user-event": "^12.1.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^4.0.1",
     "react-semantic-ui-datepickers": "^2.8.1-beta.0",
     "recharts": "^1.8.5",
     "semantic-ui-css": "^2.4.1",
