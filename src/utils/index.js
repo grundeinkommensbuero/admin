@@ -3,7 +3,7 @@ export const formatDate = (dateString) => {
     return null;
   }
 
-  const date = new Date();
+  const date = new Date(dateString);
 
   const options = {
     year: 'numeric',
