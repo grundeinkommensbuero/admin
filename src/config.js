@@ -1,5 +1,5 @@
 console.log('env', process.env.NODE_ENV);
-export default {
+const config = {
   API: {
     INVOKE_URL:
       process.env.NODE_ENV === 'development'
@@ -15,3 +15,5 @@ export default {
     USER_POOL_CLIENT_ID: process.env.REACT_APP_COGNITO_CLIENT_ID,
   },
 };
+
+export default config;

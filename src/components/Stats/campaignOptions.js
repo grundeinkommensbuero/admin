@@ -1,4 +1,4 @@
-export default [
+const options = [
   {
     key: 'schleswig-holstein-1',
     text: 'Schleswig Holstein 1',
@@ -25,3 +25,5 @@ export default [
     value: 'bremen-1',
   },
 ];
+
+export default options;

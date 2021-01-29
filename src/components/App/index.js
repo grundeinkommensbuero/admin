@@ -12,6 +12,7 @@ import UserStats from '../Stats/UserStats';
 import SignatureListStats from '../Stats/SignatureListStats';
 import Helmet from 'react-helmet';
 import UserInfo from '../UserInfo';
+import Donations from '../Donations';
 
 //configure cognito
 Auth.configure({
@@ -66,6 +67,13 @@ const App = () => {
                 <SignatureStats />
                 <SignatureListStats />
                 <UserStats />
+              </Route>
+
+              <Route path="/donations">
+                <Helmet>
+                  <title>Spenden</title>
+                </Helmet>
+                <Donations />
               </Route>
 
               <Route path="/user-info">
