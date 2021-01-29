@@ -1,39 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Form } from 'semantic-ui-react';
+import campaignConfig from '../../../campaignConfig';
 import { useCreateUser } from '../../../hooks/api/createUser';
 
-const campaignOptions = [
-  {
-    key: 'schleswig-holstein-1',
-    text: 'Schleswig Holstein 1',
-    value: 'schleswig-holstein-1',
-  },
-  {
-    key: 'berlin-0',
-    text: 'Berlin Veranstaltung',
-    value: 'berlin-0',
-  },
-  {
-    key: 'brandenburg-1',
-    text: 'Brandenburg 1',
-    value: 'brandenburg-1',
-  },
-  {
-    key: 'hamburg-1',
-    text: 'Hamburg 1',
-    value: 'hamburg-1',
-  },
-  {
-    key: 'berlin-1',
-    text: 'Berlin 1',
-    value: 'berlin-1',
-  },
-  {
-    key: 'bremen-1',
-    text: 'Bremen 1',
-    value: 'bremen-1',
-  },
-];
+const campaignOptions = campaignConfig.campaigns.map((campaign) => ({
+  key: campaign.code,
+  text: campaign.name,
+  value: campaign.code,
+}));
 
 const NewsletterForm = () => {
   const [email, setEmail] = useState('');

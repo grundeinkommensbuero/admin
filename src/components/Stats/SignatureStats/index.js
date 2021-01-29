@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Dropdown, Header, Loader } from 'semantic-ui-react';
-import campaignOptions from '../campaignOptions';
 import { useSignatureCount } from '../../../hooks/api/getSignatureCount';
 import { usePowerUsers } from '../../../hooks/api/getPowerUsers';
 import SignatureCountTable from './SignatureCountTable';
@@ -9,6 +8,13 @@ import { useSignatureHistory } from '../../../hooks/api/getSignatureHistory';
 import SignatureHistoryTable from './SignatureHistoryTable';
 import SignatureHistoryChart from './SignatureHistoryChart';
 import DatePicker from '../DatePicker';
+import campaignConfig from '../../../campaignConfig';
+
+const campaignOptions = campaignConfig.campaigns.map((campaign) => ({
+  key: campaign.code,
+  text: campaign.name,
+  value: campaign.code,
+}));
 
 const SignatureStats = () => {
   const [campaign, setCampaign] = useState(campaignOptions[0].value);
