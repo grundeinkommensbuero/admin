@@ -117,13 +117,14 @@ const UserInfo = () => {
                           index < listLimit && <span>{list.id}, </span>
                       )}
 
-                      {user.signatureLists.length > listLimit}
-                      <span
-                        className="clickableText"
-                        onClick={() => setListLimit(listLimit + 10)}
-                      >
-                        Mehr sehen
-                      </span>
+                      {user.signatureLists.length > listLimit && (
+                        <span
+                          className="clickableText"
+                          onClick={() => setListLimit(listLimit + 10)}
+                        >
+                          Mehr sehen
+                        </span>
+                      )}
                     </Table.Cell>
                     <Table.Cell>{user.signatureCount.received}</Table.Cell>
                     <Table.Cell>{user.signatureCount.scannedByUser}</Table.Cell>
