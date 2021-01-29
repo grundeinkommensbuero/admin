@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form } from 'semantic-ui-react';
 import campaignConfig from '../../../campaignConfig';
 import { useCreateUser } from '../../../hooks/api/createUser';
+import config from '../../../config';
 
 const campaignOptions = campaignConfig.campaigns.map((campaign) => ({
   key: campaign.code,
@@ -55,12 +56,14 @@ const NewsletterForm = () => {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-          <Form.Checkbox
-            className="inlineCheckbox"
-            label="Aktiv"
-            name="extraInfo"
-            onClick={(event) => setExtraInfo(!extraInfo)}
-          />
+          {config.IS_XBGE && (
+            <Form.Checkbox
+              className="inlineCheckbox"
+              label="Aktiv"
+              name="extraInfo"
+              onClick={(event) => setExtraInfo(!extraInfo)}
+            />
+          )}
           <Form.Button className="inlineButton" type="submit">
             Eintragen
           </Form.Button>

@@ -14,6 +14,7 @@ import SignatureListStats from '../Stats/SignatureListStats';
 import Helmet from 'react-helmet';
 import UserInfo from '../UserInfo';
 import Donations from '../Donations';
+import config from '../../config';
 
 //configure cognito
 Auth.configure({
@@ -52,7 +53,12 @@ const App = () => {
 
   return (
     <div className="app">
-      <Helmet defaultTitle="Admin Panel" titleTemplate="Admin Panel - %s" />
+      <Helmet
+        defaultTitle={config.IS_XBGE ? 'Expeditionsadmin' : 'Admin Panel'}
+        titleTemplate={
+          config.IS_XBGE ? 'Expeditionsadmin - %s' : 'Admin Panel - %s'
+        }
+      />
       {isAuthenticated && (
         <Router>
           <Nav />

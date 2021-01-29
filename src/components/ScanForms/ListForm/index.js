@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form } from 'semantic-ui-react';
+import config from '../../../config';
 import { useUpdateSignatureList } from '../../../hooks/api/updateSignatures';
 
 const ListForm = () => {
@@ -51,7 +52,7 @@ const ListForm = () => {
         <p>Liste erfolgreich aktualisiert</p>
       )}
 
-      {state.isAnonymous && !isTyping && (
+      {config.IS_XBGE && state.isAnonymous && !isTyping && (
         <p>
           Die Liste wurde anonym heruntergeladen und kann deshalb keiner
           E-Mail-Adresse zugeordnet werden. Wenn die Anzahl der Unterschriften,
@@ -68,23 +69,6 @@ const ListForm = () => {
           E-Mail-Adresse des Absenders oder der Absenderin der Listen ein. Falls
           der Absender oder die Absenderin der Listen nicht mehr bekannt ist,
           kann diese Nachricht ignoriert werden.
-        </p>
-      )}
-
-      {state.mailMissing && !isTyping && (
-        <p>
-          Die Liste ist von einer Person, die für die Briefaktion aufgrund des
-          Fehlers keine E-Mail-Adresse angegeben hat. Schicke bitte eine Mail an
-          Valentin, indem du{' '}
-          <a
-            href={`mailto:valentin@expedition-grundeinkommen.de?subject=Liste%20von%20Briefaktion%20gescannt&body=Liste%20von%20Briefaktion%20ohne%20E-Mail-Adresse%0D%0AListen%20ID%3A%20${lastListId}%0D%0AE-Mail-Adresse%3A%20...`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            hier klickst
-          </a>
-          . Bitte trage in der Mail die E-Mail-Adresse des Absenders oder der
-          Absenderin der Liste ein. Die Listen ID wird automatisch übergeben.
         </p>
       )}
 
