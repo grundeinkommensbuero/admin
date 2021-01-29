@@ -18,6 +18,11 @@ const Nav = () => {
         Statistiken
       </Menu.Item>
 
+      <Menu.Item as={Link} to="/donations">
+        <Icon name="money bill alternate outline" />
+        Spenden
+      </Menu.Item>
+
       <Menu.Item as={Link} to="/user-info">
         <Icon name="address book outline" />
         User*innen-Suche
