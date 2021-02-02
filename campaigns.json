@@ -1,0 +1,24 @@
+{
+  "campaigns": [
+    {
+      "round": 1,
+      "name": "Schleswig Holstein"
+    },
+    {
+      "round": 1,
+      "name": "Brandenburg"
+    },
+    {
+      "round": 1,
+      "name": "Hamburg"
+    },
+    {
+      "round": 1,
+      "name": "Berlin"
+    },
+    {
+      "round": 1,
+      "name": "Bremen"
+    }
+  ]
+}
