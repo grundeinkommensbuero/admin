@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Form } from 'semantic-ui-react';
-import campaignConfig from '../../../campaignConfig';
+import campaigns from '../../../campaignConfig';
 import { useCreateUser } from '../../../hooks/api/createUser';
 import config from '../../../config';
 
-const campaignOptions = campaignConfig.campaigns.map((campaign) => ({
+const campaignOptions = campaigns.map((campaign) => ({
   key: campaign.code,
   text: campaign.name,
   value: campaign.code,

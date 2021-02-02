@@ -8,9 +8,9 @@ import { useSignatureHistory } from '../../../hooks/api/getSignatureHistory';
 import SignatureHistoryTable from './SignatureHistoryTable';
 import SignatureHistoryChart from './SignatureHistoryChart';
 import DatePicker from '../DatePicker';
-import campaignConfig from '../../../campaignConfig';
+import campaigns from '../../../campaignConfig';
 
-const campaignOptions = campaignConfig.campaigns.map((campaign) => ({
+const campaignOptions = campaigns.map((campaign) => ({
   key: campaign.code,
   text: campaign.name,
   value: campaign.code,

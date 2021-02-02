@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Header, Table, Loader, Dropdown } from 'semantic-ui-react';
-import campaignConfig from '../../../campaignConfig';
+import campaigns from '../../../campaignConfig';
 import { useUserCount } from '../../../hooks/api/getUserCount';
 
-const campaignOptions = campaignConfig.campaigns.map((campaign) => ({
+const campaignOptions = campaigns.map((campaign) => ({
   key: campaign.code,
   text: campaign.name,
   value: campaign.code,

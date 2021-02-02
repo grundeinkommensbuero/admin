@@ -3,9 +3,9 @@ import { Form, Loader, Table } from 'semantic-ui-react';
 import { useSearchUser } from '../../hooks/api/searchUser';
 import './index.css';
 import { useCreateSignatureList } from '../../hooks/api/createSignatureList';
-import campaignConfig from '../../campaignConfig';
+import campaigns from '../../campaignConfig';
 
-const campaignOptions = campaignConfig.campaigns.map((campaign) => ({
+const campaignOptions = campaigns.map((campaign) => ({
   key: campaign.code,
   text: campaign.name,
   value: campaign.code,

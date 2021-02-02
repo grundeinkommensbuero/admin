@@ -1,8 +1,8 @@
-const campaigns = require('../campaigns.json');
+const json = require('./campaigns.json');
 
-const campaignConfig = campaigns.map(({ name, round }) => ({
+const campaigns = json.campaigns.map(({ name, round }) => ({
   name: `${name} ${round}`,
   code: `${name}-${round}`,
 }));
 
-export default campaignConfig;
+export default campaigns;
