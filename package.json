@@ -1,6 +1,6 @@
 {
-  "name": "@xbge/admin-panel",
-  "version": "0.0.9",
+  "name": "admin-direct-democracy",
+  "version": "0.0.1",
   "main": "dist/module.js",
   "babel": {
     "presets": [
