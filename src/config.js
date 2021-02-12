@@ -8,7 +8,7 @@ const config = {
     USER_POOL_ID: process.env.REACT_APP_COGNITO_USER_POOL_ID,
     USER_POOL_CLIENT_ID: process.env.REACT_APP_COGNITO_CLIENT_ID,
   },
-  IS_XBGE: true,
+  IS_XBGE: process.env.REACT_APP_IS_XBGE,
 };
 
 export default config;
