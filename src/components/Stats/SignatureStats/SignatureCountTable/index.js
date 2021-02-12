@@ -1,5 +1,6 @@
 import { Table } from 'semantic-ui-react';
 import React from 'react';
+import config from '../../../../config';
 
 const SignatureCountTable = ({ stats }) => {
   return (
@@ -8,13 +9,15 @@ const SignatureCountTable = ({ stats }) => {
         <Table.Row>
           <Table.HeaderCell>Kampagne</Table.HeaderCell>
           <Table.HeaderCell>Angekommen</Table.HeaderCell>
-          <Table.HeaderCell>Von User*in gescannt</Table.HeaderCell>
+          <Table.HeaderCell>Von User*in eingetragen</Table.HeaderCell>
           <Table.HeaderCell>
-            Berechnet aus angekommen und gescannt
+            Berechnet aus angekommen und eingetragen
           </Table.HeaderCell>
-          <Table.HeaderCell>Gescannt und nicht angekommen</Table.HeaderCell>
+          <Table.HeaderCell>Eingetragen und nicht angekommen</Table.HeaderCell>
 
-          <Table.HeaderCell>Inklusive Contentfuladdition</Table.HeaderCell>
+          {config.IS_XBGE && (
+            <Table.HeaderCell>Inklusive Contentfuladdition</Table.HeaderCell>
+          )}
         </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -27,7 +30,9 @@ const SignatureCountTable = ({ stats }) => {
             <Table.Cell>
               {stats[campaign].computed - stats[campaign].withMixed}
             </Table.Cell>
-            <Table.Cell>{stats[campaign].withContentful}</Table.Cell>
+            {config.IS_XBGE && (
+              <Table.Cell>{stats[campaign].withContentful}</Table.Cell>
+            )}
           </Table.Row>
         ))}
       </Table.Body>
