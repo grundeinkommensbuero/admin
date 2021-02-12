@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Header, Table, Loader, Dropdown } from 'semantic-ui-react';
 import campaigns from '../../../campaignConfig';
+import config from '../../../config';
 import { useUserCount } from '../../../hooks/api/getUserCount';
 
 const campaignOptions = campaigns.map((campaign) => ({
@@ -20,20 +21,27 @@ const UserStats = () => {
       {!stats && <Loader active inline="centered" />}
       {stats && <UserStatsTable stats={stats} />}
 
-      <Header color="orange">Wieviele Menschen haben wieviel gepledgt?</Header>
-      <Dropdown
-        placeholder="Kampagne auswählen"
-        selection
-        fluid
-        search
-        value={campaign}
-        options={campaignOptions}
-        onChange={(event, { value }) => setCampaign(value)}
-        label="Kampagne"
-      />
+      {/* Only include pledge stats for xbge */}
+      {config.IS_XBGE && (
+        <>
+          <Header color="orange">
+            Wieviele Menschen haben wieviel gepledgt?
+          </Header>
+          <Dropdown
+            placeholder="Kampagne auswählen"
+            selection
+            fluid
+            search
+            value={campaign}
+            options={campaignOptions}
+            onChange={(event, { value }) => setCampaign(value)}
+            label="Kampagne"
+          />
 
-      {!stats && <Loader active inline="centered" />}
-      {stats && <PledgeMapTable stats={stats} campaign={campaign} />}
+          {!stats && <Loader active inline="centered" />}
+          {stats && <PledgeMapTable stats={stats} campaign={campaign} />}
+        </>
+      )}
     </>
   );
 };
@@ -45,14 +53,19 @@ const UserStatsTable = ({ stats }) => {
         <Table.Row>
           <Table.HeaderCell>Kampagne</Table.HeaderCell>
           <Table.HeaderCell>Verifiziert</Table.HeaderCell>
-          <Table.HeaderCell>Anzahl Pledges</Table.HeaderCell>
-          <Table.HeaderCell>Gepledgte Unterschriften</Table.HeaderCell>
-          <Table.HeaderCell>
-            Verifiziert mit Newsletter Consent
-          </Table.HeaderCell>
-          <Table.HeaderCell>
-            Gepledgte Unterschriften (mit Newsletter Consent)
-          </Table.HeaderCell>
+          {/* Only include pledge stats and users with newsletter consent for xbge */}
+          {config.IS_XBGE && (
+            <>
+              <Table.HeaderCell>Anzahl Pledges</Table.HeaderCell>
+              <Table.HeaderCell>Gepledgte Unterschriften</Table.HeaderCell>
+              <Table.HeaderCell>
+                Verifiziert mit Newsletter Consent
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                Gepledgte Unterschriften (mit Newsletter Consent)
+              </Table.HeaderCell>
+            </>
+          )}
           <Table.HeaderCell>
             Anzahl User*innen, die Liste heruntergeladen haben
           </Table.HeaderCell>
@@ -67,16 +80,24 @@ const UserStatsTable = ({ stats }) => {
               <Table.Row key={index}>
                 <Table.Cell>{campaign}</Table.Cell>
                 <Table.Cell>{stats[campaign].verifiedUsers.count}</Table.Cell>
-                <Table.Cell>{stats[campaign].verifiedUsers.pledges}</Table.Cell>
-                <Table.Cell>
-                  {stats[campaign].verifiedUsers.signatures}
-                </Table.Cell>
-                <Table.Cell>
-                  {stats[campaign].usersWithNewsletterConsent.count}
-                </Table.Cell>
-                <Table.Cell>
-                  {stats[campaign].usersWithNewsletterConsent.signatures}
-                </Table.Cell>
+                {/* Only include pledge stats and users with newsletter consent for xbge */}
+                {config.IS_XBGE && (
+                  <>
+                    <Table.Cell>
+                      {stats[campaign].verifiedUsers.pledges}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {stats[campaign].verifiedUsers.signatures}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {stats[campaign].usersWithNewsletterConsent.count}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {stats[campaign].usersWithNewsletterConsent.signatures}
+                    </Table.Cell>
+                  </>
+                )}
+
                 <Table.Cell>
                   {stats[campaign].verifiedUsers.downloaders}
                 </Table.Cell>
@@ -87,10 +108,14 @@ const UserStatsTable = ({ stats }) => {
         <Table.Row>
           <Table.Cell>Gesamt</Table.Cell>
           <Table.Cell>{stats.totalCount.verifiedUsers}</Table.Cell>
-          <Table.Cell></Table.Cell>
-          <Table.Cell></Table.Cell>
-          <Table.Cell></Table.Cell>
-          <Table.Cell></Table.Cell>
+          {config.IS_XBGE && (
+            <>
+              <Table.Cell></Table.Cell>
+              <Table.Cell></Table.Cell>
+              <Table.Cell></Table.Cell>
+              <Table.Cell></Table.Cell>
+            </>
+          )}
           <Table.Cell></Table.Cell>
           <Table.Cell>{stats.totalCount.unverifiedUsers}</Table.Cell>
         </Table.Row>
