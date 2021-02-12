@@ -7,6 +7,14 @@ import { formatDate } from '../../utils';
 const Donations = () => {
   const donations = useDonations();
 
+  if (
+    donations &&
+    donations.recurringDonations.length === 0 &&
+    donations.onetimeDonations.length
+  ) {
+    return <p>Es gibt noch keine Spenden</p>;
+  }
+
   return (
     <>
       {!donations && <Loader active inline="centered" />}
