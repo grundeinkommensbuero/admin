@@ -55,6 +55,7 @@ const DonationsTable = ({ donations, recurring }) => {
             <Table.HeaderCell>Erstellt am</Table.HeaderCell>
             {recurring && (
               <>
+                <Table.HeaderCell>Jährlich</Table.HeaderCell>
                 <Table.HeaderCell>Geändert am</Table.HeaderCell>
                 <Table.HeaderCell>Beendet am</Table.HeaderCell>
               </>
@@ -78,6 +79,7 @@ const DonationsTable = ({ donations, recurring }) => {
               <Table.Cell>{formatDate(donation.createdAt)}</Table.Cell>
               {recurring && (
                 <>
+                  <Table.Cell>{donation.yearly ? 'Ja' : 'Nein'}</Table.Cell>
                   <Table.Cell>{formatDate(donation.updatedAt)}</Table.Cell>
                   <Table.Cell>{formatDate(donation.cancelledAt)}</Table.Cell>
                 </>
