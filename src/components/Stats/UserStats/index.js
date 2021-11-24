@@ -128,9 +128,7 @@ const UserStatsTable = ({ stats: { data } }) => {
 
       <Table.Body>
         <Table.Row>
-          <Table.Cell>
-            {data.summary.users + data.summary.notIncludedUsers}
-          </Table.Cell>
+          <Table.Cell>{data.summary.users}</Table.Cell>
           <Table.Cell>{usersBerlinCount}</Table.Cell>
           <Table.Cell>{usersBremenCount}</Table.Cell>
           <Table.Cell>{usersHamburgCount}</Table.Cell>
