@@ -13,6 +13,7 @@ import SignatureListStats from '../Stats/SignatureListStats';
 import Helmet from 'react-helmet';
 import UserInfo from '../UserInfo';
 import Donations from '../Donations';
+import ActiveUserCount from '../Stats/ActiveUserCount';
 
 //configure cognito
 Auth.configure({
@@ -64,6 +65,7 @@ const App = () => {
                 <Helmet>
                   <title>Statistiken</title>
                 </Helmet>
+                <ActiveUserCount />
                 <UserStats />
                 <SignatureStats />
                 <SignatureListStats />
