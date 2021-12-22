@@ -36,15 +36,15 @@ const campaignOptions = [
 ];
 
 const NewsletterForm = () => {
-  const [email, setEmail] = useState('');
+  const [emailInput, setEmailInput] = useState('');
   const [extraInfo, setExtraInfo] = useState(false);
   const [campaign, setCampaign] = useState(campaignOptions[0].value);
-  const [state, createUser] = useCreateUser();
+  const [state, message, createUser] = useCreateUser();
 
   //reset email if user was successfully added
   useEffect(() => {
     if (state === 'saved' || state === 'userExists') {
-      setEmail('');
+      setEmailInput('');
       //focus on input element again
       document.querySelector('#email-input').focus();
     }
@@ -52,17 +52,22 @@ const NewsletterForm = () => {
 
   return (
     <>
-      {state === 'saving' && <p>Wird gespeichert...</p>}
-      {state === 'saved' && <p>User*in erfolgreich eingetragen</p>}
-      {state === 'invalidEmail' && <p>Ungültige E-Mail-Adresse</p>}
-      {state === 'userExists' && (
-        <p>
-          User*in existiert bereits, Newslettereinstellungen wurden geupdated
-        </p>
+      {state === 'loading' && <p>Wird gespeichert...</p>}
+      {state === 'success' && message && (
+        <>
+          <p>Erfolg!</p>
+          <NewlineText>{message}</NewlineText>
+        </>
       )}
-      {state === 'error' && <p>Fehler!</p>}
+      {state === 'invalidEmail' && <p>Ungültige E-Mail-Adresse</p>}
+      {state === 'error' && <p>Fehler: {message}</p>}
 
-      <Form onSubmit={() => createUser(email, campaign, extraInfo)}>
+      <Form
+        onSubmit={() => {
+          const emails = emailInput.split('\n');
+          createUser(emails, campaign, extraInfo);
+        }}
+      >
         <Form.Dropdown
           placeholder="Kampagne auswählen"
           fluid
@@ -73,13 +78,13 @@ const NewsletterForm = () => {
         />
 
         <Form.Group>
-          <Form.Input
+          <Form.TextArea
             id="email-input"
-            label="E-Mail-Adresse"
-            placeholder="E-Mail-Adresse"
+            label="E-Mail-Adressen"
+            placeholder="Gib eine oder mehrere E-Mail-Adressen an. Pro Zeile eine Adresse."
             width={12}
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            value={emailInput}
+            onChange={(event) => setEmailInput(event.target.value)}
           />
           <Form.Checkbox
             className="inlineCheckbox"
@@ -95,5 +100,9 @@ const NewsletterForm = () => {
     </>
   );
 };
+
+// Takes text with line breaks (\n) and transforms it correctly
+const NewlineText = ({ children }) =>
+  children.split('\n').map((str) => <p>{str}</p>);
 
 export default NewsletterForm;
