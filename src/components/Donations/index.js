@@ -1,11 +1,13 @@
-import React from 'react';
-import { Header, Loader, Table } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Button, Header, Loader, Table } from 'semantic-ui-react';
 import { useDonations } from '../../hooks/api/getDonations';
 import './index.css';
 import { formatDate } from '../../utils';
+import { useUpdateUser } from '../../hooks/api/updateUser';
+import { useEffect } from 'react/cjs/react.development';
 
 const Donations = () => {
-  const donations = useDonations();
+  const [donations, refetchDonations] = useDonations();
 
   return (
     <>
@@ -16,6 +18,7 @@ const Donations = () => {
             <>
               <Header color="orange">Wiederkehrende Spenden</Header>
               <DonationsTable
+                refetchDonations={refetchDonations}
                 donations={donations.recurringDonations}
                 recurring={true}
               />
@@ -38,9 +41,25 @@ const Donations = () => {
 
 export default Donations;
 
-const DonationsTable = ({ donations, recurring }) => {
+const DonationsTable = ({ donations, recurring, refetchDonations }) => {
+  const [updateUserState, updateUser] = useUpdateUser();
+  const [cancelledDonationId, setCancelledDonationId] = useState();
+
+  const cancelDonation = (userId, donationId) => {
+    updateUser(userId, { donation: { cancel: true } });
+    setCancelledDonationId(donationId);
+  };
+
+  // Refetch donation was cancellation was successful
+  useEffect(() => {
+    if (updateUserState === 'saved') {
+      refetchDonations();
+    }
+  }, [updateUserState, refetchDonations]);
+
   return (
     <div className="donationsTable">
+      {updateUserState === 'error' && <p>Fehler beim Beenden der Spende!</p>}
       <Table celled>
         <Table.Header>
           <Table.Row>
@@ -58,6 +77,7 @@ const DonationsTable = ({ donations, recurring }) => {
                 <Table.HeaderCell>Jährlich</Table.HeaderCell>
                 <Table.HeaderCell>Geändert am</Table.HeaderCell>
                 <Table.HeaderCell>Beendet am</Table.HeaderCell>
+                <Table.HeaderCell>Spende beenden</Table.HeaderCell>
               </>
             )}
           </Table.Row>
@@ -82,6 +102,19 @@ const DonationsTable = ({ donations, recurring }) => {
                   <Table.Cell>{donation.yearly ? 'Ja' : 'Nein'}</Table.Cell>
                   <Table.Cell>{formatDate(donation.updatedAt)}</Table.Cell>
                   <Table.Cell>{formatDate(donation.cancelledAt)}</Table.Cell>
+                  <Table.Cell>
+                    {!donation.cancelledAt && (
+                      <Button
+                        negative
+                        loading={cancelledDonationId === donation.id}
+                        onClick={() =>
+                          cancelDonation(donation.userId, donation.id)
+                        }
+                      >
+                        Spende beenden
+                      </Button>
+                    )}
+                  </Table.Cell>
                 </>
               )}
             </Table.Row>

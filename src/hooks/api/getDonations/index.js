@@ -1,12 +1,18 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import CONFIG from '../../../config';
 import AuthContext from '../../../context/authentication';
 
+// useDonations returns array of donations and a function to refetch donations.
+// Function does not have to be executed, donations are getting fetched on first render.
 export const useDonations = () => {
   const [donations, setDonations] = useState();
 
   //get auth token from global context
   const { token } = useContext(AuthContext);
+
+  const fetchDonations = useCallback(() => {
+    getDonations(token).then((data) => setDonations(data.donations));
+  }, [token]);
 
   // Difficult to use lazy loading state, because token
   // might not be accessible in the beginning
@@ -14,11 +20,11 @@ export const useDonations = () => {
     // Only proceed if token is not null and if users is not set
     // (because we only want to do it once)
     if (token && !donations) {
-      getDonations(token).then((data) => setDonations(data.donations));
+      fetchDonations();
     }
-  }, [token, donations]); // dependency array to call use effect when token was set
+  }, [token, donations, fetchDonations]); // dependency array to call use effect when token was set
 
-  return donations;
+  return [donations, fetchDonations];
 };
 
 //gets stats (count of signatures) for each campaign
