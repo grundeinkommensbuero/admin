@@ -14,7 +14,9 @@ const config = {
     USER_POOL_ID: useDevBackend
       ? 'eu-central-1_R7ucfhvJM'
       : 'eu-central-1_q89dI31Fh',
-    USER_POOL_CLIENT_ID: process.env.REACT_APP_COGNITO_CLIENT_ID,
+    USER_POOL_CLIENT_ID: useDevBackend
+      ? process.env.REACT_APP_DEV_COGNITO_CLIENT_ID
+      : process.env.REACT_APP_PROD_COGNITO_CLIENT_ID,
   },
 };
 
