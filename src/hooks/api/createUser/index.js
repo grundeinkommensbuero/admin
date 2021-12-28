@@ -4,20 +4,29 @@ import CONFIG from '../../../config';
 
 export const useCreateUser = () => {
   const [state, setState] = useState(null);
+  const [message, setMessage] = useState(null);
 
   //get auth token from global context
   const { token } = useContext(AuthContext);
 
   return [
     state,
-    (email, campaignCode, extraInfo) =>
-      createUser(email, campaignCode, extraInfo, token, setState),
+    message,
+    (emails, campaignCode, extraInfo) =>
+      createUser(emails, campaignCode, extraInfo, token, setState, setMessage),
   ];
 };
 
 //makes an api call to create a user (in cognito and dynamo)
-const createUser = async (email, campaignCode, extraInfo, token, setState) => {
-  setState('saving');
+const createUser = async (
+  emails,
+  campaignCode,
+  extraInfo,
+  token,
+  setState,
+  setMessage
+) => {
+  setState('loading');
   try {
     const request = {
       method: 'POST',
@@ -26,7 +35,7 @@ const createUser = async (email, campaignCode, extraInfo, token, setState) => {
         'Content-Type': 'application/json',
         Authorization: token,
       },
-      body: JSON.stringify({ email, campaignCode, extraInfo }),
+      body: JSON.stringify({ emails, campaignCode, extraInfo }),
     };
 
     const response = await fetch(
@@ -34,14 +43,14 @@ const createUser = async (email, campaignCode, extraInfo, token, setState) => {
       request
     );
 
-    if (response.status === 201) {
-      setState('saved');
-    } else if (response.status === 200) {
-      setState('userExists');
+    if (response.status === 200) {
+      setState('success');
+      const json = await response.json();
+      setMessage(json.message);
     } else {
-      const { error } = await response.json();
+      const { message, error } = await response.json();
+      setMessage(error || message);
       console.log('error', response.status, error);
-      console.log('code', error.code);
       if (error.code === 'InvalidParameterException') {
         //btw: api returns 400 if email is invalid
         setState('invalidEmail');
