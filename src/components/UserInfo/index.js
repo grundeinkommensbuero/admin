@@ -1,10 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Button, Form, Loader, Modal, Table } from 'semantic-ui-react';
 import { useSearchUser } from '../../hooks/api/searchUser';
 import './index.css';
 import { useCreateSignatureList } from '../../hooks/api/createSignatureList';
 import { useUpdateUser } from '../../hooks/api/updateUser';
-import { useEffect } from 'react/cjs/react.development';
 import { useDeleteUser } from '../../hooks/api/deleteUser';
 
 const campaignOptions = [

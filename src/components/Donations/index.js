@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Header, Loader, Table } from 'semantic-ui-react';
 import { useDonations } from '../../hooks/api/getDonations';
 import './index.css';
 import { formatDate } from '../../utils';
 import { useUpdateUser } from '../../hooks/api/updateUser';
-import { useEffect } from 'react/cjs/react.development';
 
 const Donations = () => {
   const [donations, refetchDonations] = useDonations();
