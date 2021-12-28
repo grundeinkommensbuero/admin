@@ -58,69 +58,72 @@ const DonationsTable = ({ donations, recurring, refetchDonations }) => {
   }, [updateUserState, refetchDonations]);
 
   return (
-    <div className="donationsTable">
+    <>
+      {' '}
       {updateUserState === 'error' && <p>Fehler beim Beenden der Spende!</p>}
-      <Table celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Mandatsreferenznummer</Table.HeaderCell>
-            <Table.HeaderCell>Betrag</Table.HeaderCell>
-            <Table.HeaderCell>Vorname</Table.HeaderCell>
-            <Table.HeaderCell>Nachname</Table.HeaderCell>
-            <Table.HeaderCell>IBAN</Table.HeaderCell>
-            <Table.HeaderCell>
-              {recurring ? 'Ersteinzug' : 'Einzug'} am
-            </Table.HeaderCell>
-            <Table.HeaderCell>Erstellt am</Table.HeaderCell>
-            {recurring && (
-              <>
-                <Table.HeaderCell>Jährlich</Table.HeaderCell>
-                <Table.HeaderCell>Geändert am</Table.HeaderCell>
-                <Table.HeaderCell>Beendet am</Table.HeaderCell>
-                <Table.HeaderCell>Spende beenden</Table.HeaderCell>
-              </>
-            )}
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {donations.map((donation) => (
-            <Table.Row key={donation.id}>
-              <Table.Cell>{donation.id}</Table.Cell>
-              <Table.Cell>{donation.amount}€</Table.Cell>
-              <Table.Cell>{donation.firstName}</Table.Cell>
-              <Table.Cell>{donation.lastName}</Table.Cell>
-              <Table.Cell>{donation.iban}</Table.Cell>
-              <Table.Cell>
-                {formatDate(
-                  recurring ? donation.firstDebitDate : donation.debitDate
-                )}
-              </Table.Cell>
-              <Table.Cell>{formatDate(donation.createdAt)}</Table.Cell>
+      <div className="donationsTable">
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Mandatsreferenznummer</Table.HeaderCell>
+              <Table.HeaderCell>Betrag</Table.HeaderCell>
+              <Table.HeaderCell>Vorname</Table.HeaderCell>
+              <Table.HeaderCell>Nachname</Table.HeaderCell>
+              <Table.HeaderCell>IBAN</Table.HeaderCell>
+              <Table.HeaderCell>
+                {recurring ? 'Ersteinzug' : 'Einzug'} am
+              </Table.HeaderCell>
+              <Table.HeaderCell>Erstellt am</Table.HeaderCell>
               {recurring && (
                 <>
-                  <Table.Cell>{donation.yearly ? 'Ja' : 'Nein'}</Table.Cell>
-                  <Table.Cell>{formatDate(donation.updatedAt)}</Table.Cell>
-                  <Table.Cell>{formatDate(donation.cancelledAt)}</Table.Cell>
-                  <Table.Cell>
-                    {!donation.cancelledAt && (
-                      <Button
-                        negative
-                        loading={cancelledDonationId === donation.id}
-                        onClick={() =>
-                          cancelDonation(donation.userId, donation.id)
-                        }
-                      >
-                        Spende beenden
-                      </Button>
-                    )}
-                  </Table.Cell>
+                  <Table.HeaderCell>Jährlich</Table.HeaderCell>
+                  <Table.HeaderCell>Geändert am</Table.HeaderCell>
+                  <Table.HeaderCell>Beendet am</Table.HeaderCell>
+                  <Table.HeaderCell>Spende beenden</Table.HeaderCell>
                 </>
               )}
             </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
-    </div>
+          </Table.Header>
+
+          <Table.Body>
+            {donations.map((donation) => (
+              <Table.Row key={donation.id}>
+                <Table.Cell>{donation.id}</Table.Cell>
+                <Table.Cell>{donation.amount}€</Table.Cell>
+                <Table.Cell>{donation.firstName}</Table.Cell>
+                <Table.Cell>{donation.lastName}</Table.Cell>
+                <Table.Cell>{donation.iban}</Table.Cell>
+                <Table.Cell>
+                  {formatDate(
+                    recurring ? donation.firstDebitDate : donation.debitDate
+                  )}
+                </Table.Cell>
+                <Table.Cell>{formatDate(donation.createdAt)}</Table.Cell>
+                {recurring && (
+                  <>
+                    <Table.Cell>{donation.yearly ? 'Ja' : 'Nein'}</Table.Cell>
+                    <Table.Cell>{formatDate(donation.updatedAt)}</Table.Cell>
+                    <Table.Cell>{formatDate(donation.cancelledAt)}</Table.Cell>
+                    <Table.Cell>
+                      {!donation.cancelledAt && (
+                        <Button
+                          negative
+                          loading={cancelledDonationId === donation.id}
+                          onClick={() =>
+                            cancelDonation(donation.userId, donation.id)
+                          }
+                        >
+                          Spende beenden
+                        </Button>
+                      )}
+                    </Table.Cell>
+                  </>
+                )}
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </div>
+    </>
   );
 };

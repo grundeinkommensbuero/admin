@@ -10,6 +10,10 @@
   overflow-x: scroll;
 }
 
-.actions {
+.tableButtons {
   display: flex;
+}
+
+.modal .content {
+  margin-left: 0;
 }

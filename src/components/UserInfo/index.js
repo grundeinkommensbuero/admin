@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from 'react';
-import { Button, Form, Loader, Table } from 'semantic-ui-react';
+import { Button, Form, Loader, Modal, Table } from 'semantic-ui-react';
 import { useSearchUser } from '../../hooks/api/searchUser';
 import './index.css';
 import { useCreateSignatureList } from '../../hooks/api/createSignatureList';
 import { useUpdateUser } from '../../hooks/api/updateUser';
 import { useEffect } from 'react/cjs/react.development';
+import { useDeleteUser } from '../../hooks/api/deleteUser';
 
 const campaignOptions = [
   {
@@ -120,6 +121,10 @@ const UserInfo = () => {
         <>
           <CreateListForm userId={users[0].cognitoId} />
 
+          {updateUserState === 'error' && (
+            <p>Fehler beim Austragen aus dem Newsletter!</p>
+          )}
+
           <div className="userInfoTable">
             <Table celled>
               <Table.Header>
@@ -176,7 +181,7 @@ const UserInfo = () => {
                     </Table.Cell>
                     <Table.Cell>{user.signatureCount.received}</Table.Cell>
                     <Table.Cell>{user.signatureCount.scannedByUser}</Table.Cell>
-                    <Table.Cell className="actions">
+                    <Table.Cell className="tableButtons">
                       {isSubscribedToAnyNewsletter(user) && (
                         <Button
                           loading={updateUserState === 'saving'}
@@ -189,6 +194,11 @@ const UserInfo = () => {
                           Aus Newsletter entfernen
                         </Button>
                       )}
+                      <ConfirmationModal
+                        trigger={<Button negative>User*in löschen</Button>}
+                        userId={user.cognitoId}
+                        onSuccess={triggerSearch}
+                      />
                     </Table.Cell>
                   </Table.Row>
                 ))}
@@ -249,6 +259,50 @@ const CreateListForm = ({ userId }) => {
         )}
       </Form.Group>
     </Form>
+  );
+};
+
+const ConfirmationModal = ({ trigger, userId, onSuccess }) => {
+  const [open, setOpen] = useState(false);
+  const [state, deleteUser] = useDeleteUser();
+
+  useEffect(() => {
+    if (state === 'success') {
+      setOpen(false);
+
+      if (onSuccess) {
+        onSuccess();
+      }
+    }
+  }, [state, setOpen, onSuccess]);
+
+  return (
+    <Modal
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+      trigger={trigger}
+      size="tiny"
+      className="modal"
+      dimmer="blurring"
+    >
+      <Modal.Header>User*in löschen</Modal.Header>
+      <Modal.Content>
+        <Modal.Description>
+          <p>Bist du dir sicher? Dies kann nicht rückgängig gemacht werden.</p>
+          {state === 'error' && <p>Fehler!</p>}
+        </Modal.Description>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button onClick={() => setOpen(false)}>Doch nicht</Button>
+        <Button
+          negative
+          loading={state === 'loading'}
+          content="Ja, ich bin mir sicher"
+          onClick={() => deleteUser(userId)}
+        />
+      </Modal.Actions>
+    </Modal>
   );
 };
 

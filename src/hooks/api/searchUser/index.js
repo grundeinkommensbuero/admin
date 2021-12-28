@@ -45,8 +45,11 @@ const searchUser = async ({ email, listId }, token, setState, setUsers) => {
       setState('success');
     } else if (response.status === 404) {
       setState('noUsersFound');
+      // Need to reset users here because of refetching data after deletion
+      setUsers(null);
     } else {
       setState('error');
+      setUsers(null);
     }
   } catch (error) {
     console.log(error);
