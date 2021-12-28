@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useCallback } from 'react';
 import AuthContext from '../../../context/authentication';
 import CONFIG from '../../../config';
 
@@ -9,11 +9,12 @@ export const useSearchUser = () => {
   //get auth token from global context
   const { token } = useContext(AuthContext);
 
-  return [
-    state,
-    users,
+  const triggerSearch = useCallback(
     (searchParams) => searchUser(searchParams, token, setState, setUsers),
-  ];
+    [token]
+  );
+
+  return [state, users, triggerSearch];
 };
 
 // makes an api call to create a user (in cognito and dynamo)

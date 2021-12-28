@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Form, Loader, Table } from 'semantic-ui-react';
+import React, { useCallback, useState } from 'react';
+import { Button, Form, Loader, Table } from 'semantic-ui-react';
 import { useSearchUser } from '../../hooks/api/searchUser';
 import './index.css';
 import { useCreateSignatureList } from '../../hooks/api/createSignatureList';
+import { useUpdateUser } from '../../hooks/api/updateUser';
+import { useEffect } from 'react/cjs/react.development';
 
 const campaignOptions = [
   {
@@ -39,17 +41,30 @@ const UserInfo = () => {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [state, users, searchUsers] = useSearchUser();
   const [listLimit, setListLimit] = useState(10);
+  const [updateUserState, updateUser] = useUpdateUser();
+
+  const triggerSearch = useCallback(() => {
+    console.log({ searchKey });
+    if (hasSubmitted) {
+      if (searchKey === 'email') {
+        searchUsers({ email });
+      } else {
+        searchUsers({ listId });
+      }
+    }
+  }, [email, listId, hasSubmitted, searchKey, searchUsers]);
 
   const handleSubmit = () => {
     setHasSubmitted(true);
-
-    console.log({ searchKey });
-    if (searchKey === 'email') {
-      searchUsers({ email });
-    } else {
-      searchUsers({ listId });
-    }
+    triggerSearch();
   };
+
+  useEffect(() => {
+    // If user is updated, fetch data again by calling handleSubmit
+    if (updateUserState === 'saved') {
+      triggerSearch();
+    }
+  }, [updateUserState, triggerSearch]);
 
   return (
     <>
@@ -85,7 +100,8 @@ const UserInfo = () => {
         </Form.Group>
       </Form>
 
-      {state === 'loading' && <Loader active inline="centered" />}
+      {/* If data is refetched (meaning users is not null) we don't want to show the loading indicator */}
+      {state === 'loading' && !users && <Loader active inline="centered" />}
 
       {hasSubmitted &&
         state === 'noUsersFound' &&
@@ -99,7 +115,8 @@ const UserInfo = () => {
         </>
       )}
 
-      {state === 'success' && users && (
+      {/* We don't make the following render dependant on state because of the possibility to refetch data */}
+      {users && (
         <>
           <CreateListForm userId={users[0].cognitoId} />
 
@@ -111,13 +128,15 @@ const UserInfo = () => {
                   <Table.HeaderCell>UserId</Table.HeaderCell>
                   <Table.HeaderCell>Username</Table.HeaderCell>
                   <Table.HeaderCell>Postleitzahl</Table.HeaderCell>
-                  <Table.HeaderCell>Newsletter</Table.HeaderCell>
+                  <Table.HeaderCell>Allgemeiner Newsletter</Table.HeaderCell>
+                  <Table.HeaderCell>Orts-Newsletter</Table.HeaderCell>
                   <Table.HeaderCell>Erstellt am</Table.HeaderCell>
                   <Table.HeaderCell>Listen</Table.HeaderCell>
                   <Table.HeaderCell>Unterschriften angekommen</Table.HeaderCell>
                   <Table.HeaderCell>
                     Unterschriften eingetragen
                   </Table.HeaderCell>
+                  <Table.HeaderCell>Aktionen</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
@@ -130,6 +149,15 @@ const UserInfo = () => {
                     <Table.Cell>
                       {user.newsletterConsent.value ? 'Ja' : 'Nein'},{' '}
                       {user.newsletterConsent.timestamp}
+                    </Table.Cell>
+                    <Table.Cell>
+                      {user.customNewsletters?.map((newsletter) =>
+                        newsletter.value
+                          ? `${newsletter.name}${
+                              newsletter.extraInfo ? ' (+aktiv)' : ''
+                            },`
+                          : ''
+                      ) || 'Keine'}
                     </Table.Cell>
                     <Table.Cell>{user.createdAt}</Table.Cell>
                     <Table.Cell>
@@ -148,6 +176,20 @@ const UserInfo = () => {
                     </Table.Cell>
                     <Table.Cell>{user.signatureCount.received}</Table.Cell>
                     <Table.Cell>{user.signatureCount.scannedByUser}</Table.Cell>
+                    <Table.Cell className="actions">
+                      {isSubscribedToAnyNewsletter(user) && (
+                        <Button
+                          loading={updateUserState === 'saving'}
+                          onClick={() =>
+                            updateUser(user.cognitoId, {
+                              newsletterConsent: false,
+                            })
+                          }
+                        >
+                          Aus Newsletter entfernen
+                        </Button>
+                      )}
+                    </Table.Cell>
                   </Table.Row>
                 ))}
               </Table.Body>
@@ -207,6 +249,18 @@ const CreateListForm = ({ userId }) => {
         )}
       </Form.Group>
     </Form>
+  );
+};
+
+const isSubscribedToAnyNewsletter = ({
+  newsletterConsent,
+  customNewsletters,
+  reminderMails,
+}) => {
+  return (
+    newsletterConsent.value ||
+    reminderMails.value ||
+    customNewsletters.find((newsletter) => newsletter.value)
   );
 };
 

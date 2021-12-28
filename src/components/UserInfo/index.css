@@ -9,3 +9,7 @@
 .userInfoTable {
   overflow-x: scroll;
 }
+
+.actions {
+  display: flex;
+}
