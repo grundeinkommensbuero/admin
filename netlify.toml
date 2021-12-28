@@ -1,0 +1,2 @@
+[context.deploy-preview.environment]
+GATSBY_USE_DEV_BACKEND = "override"
