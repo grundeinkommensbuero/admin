@@ -1,7 +1,8 @@
 console.log('env', process.env.NODE_ENV);
+console.log('use dev backend', process.env.REACT_APP_USE_DEV_BACKEND);
 const useDevBackend =
   process.env.NODE_ENV === 'development' ||
-  process.env.GATSBY_USE_DEV_BACKEND === 'override';
+  process.env.REACT_APP_USE_DEV_BACKEND === 'override';
 
 const config = {
   API: {
