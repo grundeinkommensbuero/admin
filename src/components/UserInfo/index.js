@@ -38,37 +38,39 @@ const UserInfo = () => {
   const [email, setEmail] = useState('');
   const [listId, setListId] = useState('');
   const [searchKey, setSearchKey] = useState('email');
-  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [shouldTriggerSearch, setShouldTriggerSearch] = useState(false);
   const [state, users, searchUsers] = useSearchUser();
   const [listLimit, setListLimit] = useState(10);
-  const [updateUserState, updateUser] = useUpdateUser();
+  const [updateUserState, updateUser, setUpdateUserState] = useUpdateUser();
 
   const triggerSearch = useCallback(() => {
-    console.log({ searchKey });
-    if (hasSubmitted) {
+    if (shouldTriggerSearch) {
       if (searchKey === 'email') {
         searchUsers({ email });
       } else {
         searchUsers({ listId });
       }
     }
-  }, [email, listId, hasSubmitted, searchKey, searchUsers]);
+  }, [email, listId, shouldTriggerSearch, searchKey, searchUsers]);
 
-  const handleSubmit = () => {
-    setHasSubmitted(true);
+  useEffect(() => {
     triggerSearch();
-  };
+  }, [shouldTriggerSearch, triggerSearch]);
 
   useEffect(() => {
     // If user is updated, fetch data again by calling handleSubmit
     if (updateUserState === 'saved') {
-      triggerSearch();
+      setShouldTriggerSearch(true);
+
+      // We need to reset updateUserState,
+      // otherwise a search would be triggered on every input change
+      setUpdateUserState(null);
     }
-  }, [updateUserState, triggerSearch]);
+  }, [updateUserState, setUpdateUserState]);
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={() => setShouldTriggerSearch(true)}>
         <Form.Group>
           <Form.Input
             label="Suche nach E-Mail"
@@ -78,7 +80,7 @@ const UserInfo = () => {
             onChange={(event) => {
               setEmail(event.target.value);
               setSearchKey('email');
-              setHasSubmitted(false);
+              setShouldTriggerSearch(false);
             }}
           />
 
@@ -90,7 +92,7 @@ const UserInfo = () => {
             onChange={(event) => {
               setListId(event.target.value);
               setSearchKey('listId');
-              setHasSubmitted(false);
+              setShouldTriggerSearch(false);
             }}
           />
 
@@ -103,17 +105,19 @@ const UserInfo = () => {
       {/* If data is refetched (meaning users is not null) we don't want to show the loading indicator */}
       {state === 'loading' && !users && <Loader active inline="centered" />}
 
-      {hasSubmitted &&
+      {shouldTriggerSearch &&
         state === 'noUsersFound' &&
         searchKey === 'email' &&
         'Kein*e User*in gefunden'}
 
-      {hasSubmitted && state === 'noUsersFound' && searchKey === 'listId' && (
-        <>
-          <p>Kein*e User*in gefunden. Die Liste war wohl anonym.</p>
-          <CreateListForm />
-        </>
-      )}
+      {shouldTriggerSearch &&
+        state === 'noUsersFound' &&
+        searchKey === 'listId' && (
+          <>
+            <p>Kein*e User*in gefunden. Die Liste war wohl anonym.</p>
+            <CreateListForm />
+          </>
+        )}
 
       {/* We don't make the following render dependant on state because of the possibility to refetch data */}
       {users && (
@@ -184,11 +188,16 @@ const UserInfo = () => {
                       {isSubscribedToAnyNewsletter(user) && (
                         <Button
                           loading={updateUserState === 'saving'}
-                          onClick={() =>
+                          onClick={() => {
+                            // We need to reset email to this user's email
+                            // otherwise, if in the meantime the input was changed,
+                            // the new email would be searched.
+                            setEmail(user.email);
+                            setShouldTriggerSearch(false);
                             updateUser(user.cognitoId, {
                               newsletterConsent: false,
-                            })
-                          }
+                            });
+                          }}
                         >
                           Aus Newsletter entfernen
                         </Button>
@@ -196,7 +205,10 @@ const UserInfo = () => {
                       <ConfirmationModal
                         trigger={<Button negative>User*in löschen</Button>}
                         userId={user.cognitoId}
-                        onSuccess={triggerSearch}
+                        on
+                        onSuccess={() => setShouldTriggerSearch(true)}
+                        // Need to set state to false on open, so effect is triggered onsuccess
+                        onOpen={() => setShouldTriggerSearch(false)}
                       />
                     </Table.Cell>
                   </Table.Row>
@@ -261,7 +273,7 @@ const CreateListForm = ({ userId }) => {
   );
 };
 
-const ConfirmationModal = ({ trigger, userId, onSuccess }) => {
+const ConfirmationModal = ({ trigger, userId, onSuccess, onOpen }) => {
   const [open, setOpen] = useState(false);
   const [state, deleteUser] = useDeleteUser();
 
@@ -278,7 +290,12 @@ const ConfirmationModal = ({ trigger, userId, onSuccess }) => {
   return (
     <Modal
       onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
+      onOpen={() => {
+        setOpen(true);
+        if (onOpen) {
+          onOpen();
+        }
+      }}
       open={open}
       trigger={trigger}
       size="tiny"
@@ -313,7 +330,8 @@ const isSubscribedToAnyNewsletter = ({
   return (
     newsletterConsent.value ||
     reminderMails.value ||
-    customNewsletters.find((newsletter) => newsletter.value)
+    (customNewsletters &&
+      customNewsletters.find((newsletter) => newsletter.value))
   );
 };
 

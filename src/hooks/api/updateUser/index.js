@@ -8,7 +8,11 @@ export const useUpdateUser = () => {
   //get auth token from global context
   const { token } = useContext(AuthContext);
 
-  return [state, (userId, data) => updateUser(userId, data, token, setState)];
+  return [
+    state,
+    (userId, data) => updateUser(userId, data, token, setState),
+    setState,
+  ];
 };
 
 //makes an api call to create a user (in cognito and dynamo)
