@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useCallback } from 'react';
 import AuthContext from '../../../context/authentication';
 import CONFIG from '../../../config';
 
@@ -9,11 +9,12 @@ export const useSearchUser = () => {
   //get auth token from global context
   const { token } = useContext(AuthContext);
 
-  return [
-    state,
-    users,
+  const triggerSearch = useCallback(
     (searchParams) => searchUser(searchParams, token, setState, setUsers),
-  ];
+    [token]
+  );
+
+  return [state, users, triggerSearch];
 };
 
 // makes an api call to create a user (in cognito and dynamo)
@@ -44,8 +45,11 @@ const searchUser = async ({ email, listId }, token, setState, setUsers) => {
       setState('success');
     } else if (response.status === 404) {
       setState('noUsersFound');
+      // Need to reset users here because of refetching data after deletion
+      setUsers(null);
     } else {
       setState('error');
+      setUsers(null);
     }
   } catch (error) {
     console.log(error);

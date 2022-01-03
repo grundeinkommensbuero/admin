@@ -9,3 +9,11 @@
 .userInfoTable {
   overflow-x: scroll;
 }
+
+.tableButtons {
+  display: flex;
+}
+
+.modal .content {
+  margin-left: 0;
+}
