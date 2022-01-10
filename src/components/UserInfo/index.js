@@ -148,71 +148,79 @@ const UserInfo = () => {
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {users.map((user) => (
-                  <Table.Row key={user.cognitoId}>
-                    <Table.Cell>{user.email}</Table.Cell>
-                    <Table.Cell>{user.cognitoId}</Table.Cell>
-                    <Table.Cell>{user.username}</Table.Cell>
-                    <Table.Cell>{user.zipCode}</Table.Cell>
-                    <Table.Cell>
-                      {user.newsletterConsent.value ? 'Ja' : 'Nein'},{' '}
-                      {user.newsletterConsent.timestamp}
-                    </Table.Cell>
-                    <Table.Cell>
-                      {user.customNewsletters?.map((newsletter) =>
-                        newsletter.value
-                          ? `${newsletter.name}${
-                              newsletter.extraInfo ? ' (+aktiv)' : ''
-                            },`
-                          : ''
-                      ) || 'Keine'}
-                    </Table.Cell>
-                    <Table.Cell>{user.createdAt}</Table.Cell>
-                    <Table.Cell>
-                      {user.signatureLists.map(
-                        (list, index) =>
-                          index < listLimit && <span>{list.id}, </span>
-                      )}
+                {users.map((user) => {
+                  return (
+                    <Table.Row key={user.cognitoId}>
+                      <Table.Cell>{user.email}</Table.Cell>
+                      <Table.Cell>{user.cognitoId}</Table.Cell>
+                      <Table.Cell>{user.username}</Table.Cell>
+                      <Table.Cell>{user.zipCode}</Table.Cell>
+                      <Table.Cell>
+                        {user.newsletterConsent.value ? 'Ja' : 'Nein'},{' '}
+                        {user.newsletterConsent.timestamp}
+                      </Table.Cell>
+                      <Table.Cell>
+                        {user.customNewsletters?.map((newsletter, i) =>
+                          newsletter.value
+                            ? `${newsletter.name}${
+                                newsletter.extraInfo ? ' (+aktiv)' : ''
+                              }${
+                                i !== user.customNewsletters.length - 1
+                                  ? ', '
+                                  : ''
+                              }`
+                            : ''
+                        ) || 'Keine'}
+                      </Table.Cell>
+                      <Table.Cell>{user.createdAt}</Table.Cell>
+                      <Table.Cell>
+                        {user.signatureLists.map(
+                          (list, index) =>
+                            index < listLimit && <span>{list.id}, </span>
+                        )}
 
-                      {user.signatureLists.length > listLimit}
-                      <span
-                        className="clickableText"
-                        onClick={() => setListLimit(listLimit + 10)}
-                      >
-                        Mehr sehen
-                      </span>
-                    </Table.Cell>
-                    <Table.Cell>{user.signatureCount.received}</Table.Cell>
-                    <Table.Cell>{user.signatureCount.scannedByUser}</Table.Cell>
-                    <Table.Cell className="tableButtons">
-                      {isSubscribedToAnyNewsletter(user) && (
-                        <Button
-                          loading={updateUserState === 'saving'}
-                          onClick={() => {
-                            // We need to reset email to this user's email
-                            // otherwise, if in the meantime the input was changed,
-                            // the new email would be searched.
-                            setEmail(user.email);
-                            setShouldTriggerSearch(false);
-                            updateUser(user.cognitoId, {
-                              newsletterConsent: false,
-                            });
-                          }}
+                        {user.signatureLists.length > listLimit}
+                        <span
+                          className="clickableText"
+                          onClick={() => setListLimit(listLimit + 10)}
                         >
-                          Aus Newsletter entfernen
-                        </Button>
-                      )}
-                      <ConfirmationModal
-                        trigger={<Button negative>User*in löschen</Button>}
-                        userId={user.cognitoId}
-                        on
-                        onSuccess={() => setShouldTriggerSearch(true)}
-                        // Need to set state to false on open, so effect is triggered onsuccess
-                        onOpen={() => setShouldTriggerSearch(false)}
-                      />
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
+                          Mehr sehen
+                        </span>
+                      </Table.Cell>
+                      <Table.Cell>{user.signatureCount.received}</Table.Cell>
+                      <Table.Cell>
+                        {user.signatureCount.scannedByUser}
+                      </Table.Cell>
+                      <Table.Cell className="tableButtons">
+                        {isSubscribedToAnyNewsletter(user) && (
+                          <Button
+                            loading={updateUserState === 'saving'}
+                            onClick={() => {
+                              // We need to reset email to this user's email
+                              // otherwise, if in the meantime the input was changed,
+                              // the new email would be searched.
+                              setEmail(user.email);
+                              setShouldTriggerSearch(false);
+                              updateUser(user.cognitoId, {
+                                newsletterConsent: false,
+                              });
+                            }}
+                          >
+                            Aus Newsletter entfernen
+                          </Button>
+                        )}
+                        <ConfirmationModal
+                          trigger={<Button negative>User*in löschen</Button>}
+                          userId={user.cognitoId}
+                          on
+                          onSuccess={() => setShouldTriggerSearch(true)}
+                          // Need to set state to false on open, so effect is triggered onsuccess
+                          onOpen={() => setShouldTriggerSearch(false)}
+                        />
+                      </Table.Cell>
+                    </Table.Row>
+                  );
+                })}
               </Table.Body>
             </Table>
           </div>
