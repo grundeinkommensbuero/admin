@@ -211,8 +211,7 @@ const UserInfo = () => {
                         )}
                         <ConfirmationModal
                           trigger={<Button negative>User*in löschen</Button>}
-                          userId={user.cognitoId}
-                          on
+                          user={user}
                           onSuccess={() => setShouldTriggerSearch(true)}
                           // Need to set state to false on open, so effect is triggered onsuccess
                           onOpen={() => setShouldTriggerSearch(false)}
@@ -281,7 +280,7 @@ const CreateListForm = ({ userId }) => {
   );
 };
 
-const ConfirmationModal = ({ trigger, userId, onSuccess, onOpen }) => {
+const ConfirmationModal = ({ trigger, onSuccess, onOpen, user }) => {
   const [open, setOpen] = useState(false);
   const [state, deleteUser] = useDeleteUser();
 
@@ -313,7 +312,10 @@ const ConfirmationModal = ({ trigger, userId, onSuccess, onOpen }) => {
       <Modal.Header>User*in löschen</Modal.Header>
       <Modal.Content>
         <Modal.Description>
-          <p>Bist du dir sicher? Dies kann nicht rückgängig gemacht werden.</p>
+          <p>
+            Bist du dir sicher, dass du {user.email} löschen willst? Dies kann
+            nicht rückgängig gemacht werden.
+          </p>
           {state === 'error' && <p>Fehler!</p>}
         </Modal.Description>
       </Modal.Content>
@@ -323,7 +325,7 @@ const ConfirmationModal = ({ trigger, userId, onSuccess, onOpen }) => {
           negative
           loading={state === 'loading'}
           content="Ja, ich bin mir sicher"
-          onClick={() => deleteUser(userId)}
+          onClick={() => deleteUser(user.cognitoId)}
         />
       </Modal.Actions>
     </Modal>
