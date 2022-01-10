@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Header, Table, Loader, Dropdown } from 'semantic-ui-react';
 import { useMunicipalitiesStats } from '../../../hooks/api/getMunicipalitiesStats';
 import { getMunicipality } from '../../../hooks/api/getMunicipality';
+import { numberWithDots } from '../../../utils';
 
 const AGS_BERLIN = '11000000';
 const AGS_BREMEN = '04011000';
@@ -128,12 +129,12 @@ const UserStatsTable = ({ stats: { data } }) => {
 
       <Table.Body>
         <Table.Row>
-          <Table.Cell>{data.summary.users}</Table.Cell>
-          <Table.Cell>{usersBerlinCount}</Table.Cell>
-          <Table.Cell>{usersBremenCount}</Table.Cell>
-          <Table.Cell>{usersHamburgCount}</Table.Cell>
+          <Table.Cell>{numberWithDots(data.summary.users)}</Table.Cell>
+          <Table.Cell>{numberWithDots(usersBerlinCount)}</Table.Cell>
+          <Table.Cell>{numberWithDots(usersBremenCount)}</Table.Cell>
+          <Table.Cell>{numberWithDots(usersHamburgCount)}</Table.Cell>
           <Table.Cell>
-            {data.summary.users - data.summary.addedUsers}
+            {numberWithDots(data.summary.users - data.summary.addedUsers)}
           </Table.Cell>
         </Table.Row>
       </Table.Body>
@@ -217,12 +218,12 @@ const ListOfMunicipalities = ({ municipalities }) => {
         {mergedMunicipalities.map((municipality) => (
           <Table.Row key={municipality.ags}>
             <Table.Cell>{municipality.name}</Table.Cell>
-            <Table.Cell>{municipality.current}</Table.Cell>
-            <Table.Cell>{municipality.population}</Table.Cell>
+            <Table.Cell>{numberWithDots(municipality.current)}</Table.Cell>
+            <Table.Cell>{numberWithDots(municipality.population)}</Table.Cell>
             <Table.Cell>
               {getPercent(municipality.current, municipality.population, 2)} %
             </Table.Cell>
-            <Table.Cell>{municipality.goal}</Table.Cell>
+            <Table.Cell>{numberWithDots(municipality.goal)}</Table.Cell>
             <Table.Cell>
               {getPercent(municipality.current, municipality.goal, 1)} %
             </Table.Cell>

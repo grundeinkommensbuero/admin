@@ -12,3 +12,7 @@ export const formatDate = (dateString) => {
   };
   return new Intl.DateTimeFormat('de', options).format(date);
 };
+
+export const numberWithDots = (num = 0) => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+};

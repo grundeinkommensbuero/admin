@@ -1,5 +1,6 @@
 import { Table } from 'semantic-ui-react';
 import React from 'react';
+import { numberWithDots } from '../../../../utils';
 
 const SignatureCountTable = ({ stats }) => {
   return (
@@ -21,13 +22,19 @@ const SignatureCountTable = ({ stats }) => {
         {Object.keys(stats).map((campaign, index) => (
           <Table.Row key={index}>
             <Table.Cell>{campaign}</Table.Cell>
-            <Table.Cell>{stats[campaign].withMixed}</Table.Cell>
-            <Table.Cell>{stats[campaign].scannedByUser}</Table.Cell>
-            <Table.Cell>{stats[campaign].computed}</Table.Cell>
+            <Table.Cell>{numberWithDots(stats[campaign].withMixed)}</Table.Cell>
             <Table.Cell>
-              {stats[campaign].computed - stats[campaign].withMixed}
+              {numberWithDots(stats[campaign].scannedByUser)}
             </Table.Cell>
-            <Table.Cell>{stats[campaign].withContentful}</Table.Cell>
+            <Table.Cell>{numberWithDots(stats[campaign].computed)}</Table.Cell>
+            <Table.Cell>
+              {numberWithDots(
+                stats[campaign].computed - stats[campaign].withMixed
+              )}
+            </Table.Cell>
+            <Table.Cell>
+              {numberWithDots(stats[campaign].withContentful)}
+            </Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>

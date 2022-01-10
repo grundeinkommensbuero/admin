@@ -1,5 +1,6 @@
 import { Table } from 'semantic-ui-react';
 import React from 'react';
+import { numberWithDots } from '../../../../utils';
 
 const SignatureHistoryTable = ({ campaignHistory }) => {
   return (
@@ -24,11 +25,11 @@ const SignatureHistoryTable = ({ campaignHistory }) => {
         {campaignHistory.map((element) => (
           <Table.Row key={element.day}>
             <Table.Cell>{element.day}</Table.Cell>
-            <Table.Cell>{element.downloads}</Table.Cell>
-            <Table.Cell>{element.usersWhoScanned}</Table.Cell>
-            <Table.Cell>{element.scanned}</Table.Cell>
-            <Table.Cell>{element.scannedLists}</Table.Cell>
-            <Table.Cell>{element.received}</Table.Cell>
+            <Table.Cell>{numberWithDots(element.downloads)}</Table.Cell>
+            <Table.Cell>{numberWithDots(element.usersWhoScanned)}</Table.Cell>
+            <Table.Cell>{numberWithDots(element.scanned)}</Table.Cell>
+            <Table.Cell>{numberWithDots(element.scannedLists)}</Table.Cell>
+            <Table.Cell>{numberWithDots(element.received)}</Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>

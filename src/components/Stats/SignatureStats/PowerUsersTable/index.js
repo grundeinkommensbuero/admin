@@ -1,9 +1,10 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react';
+import { numberWithDots } from '../../../../utils';
 
 const PowerUsersTable = ({ powerUsers, campaign }) => {
   // filter powerUsers for this specific campaign
-  const users = powerUsers.filter(user => campaign in user.signatureCount);
+  const users = powerUsers.filter((user) => campaign in user.signatureCount);
 
   if (users.length > 0) {
     // Sort users array by received signatures
@@ -33,9 +34,11 @@ const PowerUsersTable = ({ powerUsers, campaign }) => {
                 {user.stillExists ? user.email : 'Wurde gelöscht'}
               </Table.Cell>
               <Table.Cell>{user.username}</Table.Cell>
-              <Table.Cell>{user.signatureCount[campaign].received}</Table.Cell>
               <Table.Cell>
-                {user.signatureCount[campaign].scannedByUser}
+                {numberWithDots(user.signatureCount[campaign].received)}
+              </Table.Cell>
+              <Table.Cell>
+                {numberWithDots(user.signatureCount[campaign].scannedByUser)}
               </Table.Cell>
             </Table.Row>
           ))}

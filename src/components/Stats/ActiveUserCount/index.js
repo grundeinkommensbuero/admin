@@ -1,6 +1,7 @@
 import React from 'react';
 import { Statistic } from 'semantic-ui-react';
 import { useActiveUserCount } from '../../../hooks/api/getActiveUserCount';
+import { numberWithDots } from '../../../utils';
 
 const ActiveUserCount = () => {
   const stats = useActiveUserCount();
@@ -9,17 +10,21 @@ const ActiveUserCount = () => {
     <>
       <Statistic.Group>
         <Statistic inverted>
-          <Statistic.Value>{stats && stats.count}</Statistic.Value>
+          <Statistic.Value>
+            {stats && numberWithDots(stats.count)}
+          </Statistic.Value>
           <Statistic.Label>Aktive User*innen</Statistic.Label>
         </Statistic>
         <Statistic inverted>
           <Statistic.Value>
-            {stats && stats.websiteActivityCount}
+            {stats && numberWithDots(stats.websiteActivityCount)}
           </Statistic.Value>
           <Statistic.Label>Aktiv auf Website</Statistic.Label>
         </Statistic>
         <Statistic inverted>
-          <Statistic.Value>{stats && stats.emailActivityCount}</Statistic.Value>
+          <Statistic.Value>
+            {stats && numberWithDots(stats.emailActivityCount)}
+          </Statistic.Value>
           <Statistic.Label>E-Mail geöffnet</Statistic.Label>
         </Statistic>
       </Statistic.Group>

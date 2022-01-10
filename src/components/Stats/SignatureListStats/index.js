@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header, Loader, Table } from 'semantic-ui-react';
 import { useSignatureListCount } from '../../../hooks/api/getSignatureListCount';
+import { numberWithDots } from '../../../utils';
 
 const SignatureListStats = () => {
   const stats = useSignatureListCount();
@@ -34,12 +35,24 @@ const SignatureListStatsTable = ({ stats }) => {
         {Object.keys(stats).map((campaign, index) => (
           <Table.Row key={index}>
             <Table.Cell>{campaign}</Table.Cell>
-            <Table.Cell>{stats[campaign].total.lists}</Table.Cell>
-            <Table.Cell>{stats[campaign].total.downloads}</Table.Cell>
-            <Table.Cell>{stats[campaign].byUser.lists}</Table.Cell>
-            <Table.Cell>{stats[campaign].byUser.downloads}</Table.Cell>
-            <Table.Cell>{stats[campaign].anonymous.lists}</Table.Cell>
-            <Table.Cell>{stats[campaign].anonymous.downloads}</Table.Cell>
+            <Table.Cell>
+              {numberWithDots(stats[campaign].total.lists)}
+            </Table.Cell>
+            <Table.Cell>
+              {numberWithDots(stats[campaign].total.downloads)}
+            </Table.Cell>
+            <Table.Cell>
+              {numberWithDots(stats[campaign].byUser.lists)}
+            </Table.Cell>
+            <Table.Cell>
+              {numberWithDots(stats[campaign].byUser.downloads)}
+            </Table.Cell>
+            <Table.Cell>
+              {numberWithDots(stats[campaign].anonymous.lists)}
+            </Table.Cell>
+            <Table.Cell>
+              {numberWithDots(stats[campaign].anonymous.downloads)}
+            </Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>
