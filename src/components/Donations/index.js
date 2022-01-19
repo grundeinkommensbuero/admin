@@ -4,15 +4,23 @@ import { useDonations } from '../../hooks/api/getDonations';
 import './index.css';
 import { formatDate } from '../../utils';
 import { useUpdateUser } from '../../hooks/api/updateUser';
+import { useDownloadDonations } from '../../hooks/api/downloadDonations';
 
 const Donations = () => {
   const [donations, refetchDonations] = useDonations();
+  const [downloadState, downloadDonations] = useDownloadDonations();
 
   return (
     <>
       {!donations && <Loader active inline="centered" />}
       {donations && (
         <>
+          <Button
+            onClick={downloadDonations}
+            loading={downloadState === 'loading'}
+          >
+            Spenden-CSV generieren
+          </Button>
           {donations.recurringDonations.length > 0 && (
             <>
               <Header color="orange">Wiederkehrende Spenden</Header>
