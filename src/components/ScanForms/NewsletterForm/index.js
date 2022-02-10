@@ -33,6 +33,11 @@ const campaignOptions = [
     text: 'Bremen 1',
     value: 'bremen-1',
   },
+  {
+    key: 'other-1',
+    text: 'Andere',
+    value: 'other-1',
+  },
 ];
 
 const NewsletterForm = () => {
