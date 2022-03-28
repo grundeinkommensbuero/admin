@@ -24,6 +24,11 @@ const options = [
     text: 'Bremen 1',
     value: 'bremen-1',
   },
+  {
+    key: 'democracy-1',
+    text: 'Demokratie für Alle',
+    value: 'democracy-1',
+  },
 ];
 
 export default options;
