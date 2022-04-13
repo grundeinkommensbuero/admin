@@ -26,6 +26,9 @@ const SignatureListStatsTable = ({ stats }) => {
           <Table.HeaderCell>Anzahl Downloads Gesamt</Table.HeaderCell>
           <Table.HeaderCell>Anzahl Listen von User*innen</Table.HeaderCell>
           <Table.HeaderCell>Anzahl Downloads von User*innen</Table.HeaderCell>
+          <Table.HeaderCell>
+            User*innen, die gedownloadet haben
+          </Table.HeaderCell>
           <Table.HeaderCell>Anzahl anonyme Listen</Table.HeaderCell>
           <Table.HeaderCell>Downloads anonyme Listen</Table.HeaderCell>
         </Table.Row>
@@ -47,6 +50,7 @@ const SignatureListStatsTable = ({ stats }) => {
             <Table.Cell>
               {numberWithDots(stats[campaign].byUser.downloads)}
             </Table.Cell>
+            <Table.Cell>{numberWithDots(stats[campaign].userCount)}</Table.Cell>
             <Table.Cell>
               {numberWithDots(stats[campaign].anonymous.lists)}
             </Table.Cell>
