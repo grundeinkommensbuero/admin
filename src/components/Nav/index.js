@@ -28,6 +28,11 @@ const Nav = () => {
         User*innen-Suche
       </Menu.Item>
 
+      <Menu.Item as={Link} to="/collectors">
+        <Icon name="clipboard outline" />
+        Sammler*innen
+      </Menu.Item>
+
       <Menu.Item as="div" onClick={() => signOut()}>
         <Icon color="red" name="sign-out" />
         Abmelden

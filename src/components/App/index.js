@@ -14,6 +14,7 @@ import Helmet from 'react-helmet';
 import UserInfo from '../UserInfo';
 import Donations from '../Donations';
 import ActiveUserCount from '../Stats/ActiveUserCount';
+import Collectors from '../Collectors';
 
 //configure cognito
 Auth.configure({
@@ -83,6 +84,13 @@ const App = () => {
                   <title>User*innen-Suche</title>
                 </Helmet>
                 <UserInfo />
+              </Route>
+
+              <Route path="/collectors">
+                <Helmet>
+                  <title>Sammler*innen</title>
+                </Helmet>
+                <Collectors />
               </Route>
 
               <Route path={['/scan', '/']}>
