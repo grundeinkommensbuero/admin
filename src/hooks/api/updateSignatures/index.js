@@ -19,7 +19,7 @@ const updateSignatureList = async (listId, count, mixed, token, setState) => {
   setState({ state: 'saving' });
   try {
     if (count > 500) {
-      setState('countTooHigh');
+      setState({ state: 'countTooHigh' });
     } else {
       //make api call to set signature count
       const request = {

@@ -35,7 +35,7 @@ const ListForm = () => {
     setListId(event.target.value);
     setIsTyping(true);
   };
-
+  console.log(state);
   return (
     <>
       {state.state === 'saving' && <p>Wird gespeichert...</p>}
@@ -107,6 +107,7 @@ const ListForm = () => {
             onChange={(event) => setCount(event.target.value)}
           />
         </Form.Group>
+        <p>Wenn die Liste keinen Barcode hat, gib 0 als Listen ID ein.</p>
 
         <Form.Group>
           <Form.Button width={4} className="inlineButton" type="submit">
