@@ -36,6 +36,7 @@ const CollectorsTable = ({ collectors }) => (
         <Table.HeaderCell>Name</Table.HeaderCell>
         <Table.HeaderCell>E-Mail</Table.HeaderCell>
         <Table.HeaderCell>Telefonnummer</Table.HeaderCell>
+        <Table.HeaderCell>PLZ</Table.HeaderCell>
         <Table.HeaderCell>Frage/Kommentar</Table.HeaderCell>
         <Table.HeaderCell>Erstellt am</Table.HeaderCell>
       </Table.Row>
@@ -47,6 +48,7 @@ const CollectorsTable = ({ collectors }) => (
           <Table.Cell>{user.username}</Table.Cell>
           <Table.Cell>{user.email}</Table.Cell>
           <Table.Cell>{user.phoneNumber}</Table.Cell>
+          <Table.Cell>{user.zipCode}</Table.Cell>
           <Table.Cell>{user.wantsToCollect.question}</Table.Cell>
           <Table.Cell>{formatDate(user.wantsToCollect.createdAt)}</Table.Cell>
         </Table.Row>
