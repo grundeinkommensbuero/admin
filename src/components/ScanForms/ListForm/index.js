@@ -51,7 +51,7 @@ const ListForm = () => {
         <p>Liste erfolgreich aktualisiert</p>
       )}
 
-      {state.isAnonymous && !isTyping && (
+      {/* {state.isAnonymous && !isTyping && (
         <p>
           Die Liste wurde anonym heruntergeladen und kann deshalb keiner
           E-Mail-Adresse zugeordnet werden. Wenn die Anzahl der Unterschriften,
@@ -69,7 +69,7 @@ const ListForm = () => {
           der Absender oder die Absenderin der Listen nicht mehr bekannt ist,
           kann diese Nachricht ignoriert werden.
         </p>
-      )}
+      )} */}
 
       {state.mailMissing && !isTyping && (
         <p>
