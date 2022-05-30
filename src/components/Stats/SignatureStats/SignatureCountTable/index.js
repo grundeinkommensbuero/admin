@@ -10,11 +10,13 @@ const SignatureCountTable = ({ stats }) => {
           <Table.HeaderCell>Kampagne</Table.HeaderCell>
           <Table.HeaderCell>Angekommen</Table.HeaderCell>
           <Table.HeaderCell>Angekommen (ohne anonyme)</Table.HeaderCell>
-          <Table.HeaderCell>Von User*in gescannt</Table.HeaderCell>
+          <Table.HeaderCell>Von User*in eingetragen</Table.HeaderCell>
           <Table.HeaderCell>
-            Berechnet aus angekommen und gescannt
+            Berechnet aus angekommen und von User*in eingetragen
           </Table.HeaderCell>
-          <Table.HeaderCell>Gescannt und nicht angekommen</Table.HeaderCell>
+          <Table.HeaderCell>
+            Von User*in eingetragen und nicht angekommen
+          </Table.HeaderCell>
 
           <Table.HeaderCell>Inklusive Contentfuladdition</Table.HeaderCell>
         </Table.Row>

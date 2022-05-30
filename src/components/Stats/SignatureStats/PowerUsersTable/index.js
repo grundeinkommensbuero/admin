@@ -22,7 +22,7 @@ const PowerUsersTable = ({ powerUsers, campaign }) => {
             <Table.HeaderCell>Name</Table.HeaderCell>
             <Table.HeaderCell>Unterschriften angekommen</Table.HeaderCell>
             <Table.HeaderCell>
-              Unterschriften von User*in gescannt
+              Unterschriften von User*in eingetragen
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
