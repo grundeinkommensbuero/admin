@@ -107,7 +107,7 @@ const ListForm = () => {
             onChange={(event) => setCount(event.target.value)}
           />
         </Form.Group>
-        <p>Wenn die Liste keinen Barcode hat, gib 1 als Listen ID ein.</p>
+        <p>Wenn die Liste keinen Barcode hat, gib 0 als Listen ID ein.</p>
 
         <Form.Group>
           <Form.Button width={4} className="inlineButton" type="submit">
