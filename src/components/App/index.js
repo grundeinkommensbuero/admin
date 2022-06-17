@@ -68,8 +68,8 @@ const App = () => {
                 </Helmet>
                 <ActiveUserCount />
                 <UserStats />
-                <SignatureStats />
                 <SignatureListStats />
+                <SignatureStats />
               </Route>
 
               <Route path="/donations">
