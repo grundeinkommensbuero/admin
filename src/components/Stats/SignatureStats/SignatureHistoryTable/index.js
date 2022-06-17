@@ -19,6 +19,10 @@ const SignatureHistoryTable = ({ campaignHistory }) => {
             Listen, für die von User*in eingetragen wurde
           </Table.HeaderCell>
           <Table.HeaderCell>Angekommene Unterschriften</Table.HeaderCell>
+          <Table.HeaderCell>
+            Angekommene Unterschriften über Online Flow (Heruntergeladen und
+            nicht mehr als 20 Unterschriften)
+          </Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -30,6 +34,9 @@ const SignatureHistoryTable = ({ campaignHistory }) => {
             <Table.Cell>{numberWithDots(element.scanned)}</Table.Cell>
             <Table.Cell>{numberWithDots(element.scannedLists)}</Table.Cell>
             <Table.Cell>{numberWithDots(element.received)}</Table.Cell>
+            <Table.Cell>
+              {numberWithDots(element.receivedOnlineLists)}
+            </Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>
