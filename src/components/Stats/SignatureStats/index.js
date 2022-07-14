@@ -11,7 +11,7 @@ import SignatureHistoryChart from './SignatureHistoryChart';
 import DatePicker from '../DatePicker';
 
 const SignatureStats = () => {
-  const [campaign, setCampaign] = useState(campaignOptions[0].value);
+  const [campaign, setCampaign] = useState(campaignOptions[4].value);
   const stats = useSignatureCount();
   const powerUsers = usePowerUsers();
   const [state, history, reloadHistory] = useSignatureHistory();
