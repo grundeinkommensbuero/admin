@@ -19,7 +19,8 @@ const SignIn = () => {
         {signInState === 'userNotFound' && (
           <p>Es wurde kein*e Nutzer*in gefunden</p>
         )}
-
+        <h2>Willkommen im Admin-Panel!</h2>
+        <p>Login mit Expeditions-Email-Adresse:</p>
         <SignInForm handleSubmit={email => signIn(email)} />
       </>
     );
