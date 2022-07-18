@@ -28,6 +28,11 @@ const campaignOptions = [
     value: 'berlin-1',
   },
   {
+    key: 'berlin-2',
+    text: 'Berlin 2',
+    value: 'berlin-2',
+  },
+  {
     key: 'bremen-1',
     text: 'Bremen 1',
     value: 'bremen-1',
