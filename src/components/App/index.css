@@ -34,7 +34,17 @@ i {
 }
 
 .signIn {
-  padding: 17rem 35rem;
+  position: relative;
+  margin: 0 auto;
+  top: 10rem;
+  max-width: 600px;
+}
+
+@media (max-width: 600px) {
+  .signIn {
+    top: 5rem;
+    padding: 1rem;
+  }
 }
 
 table {
