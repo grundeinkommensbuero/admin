@@ -8,6 +8,16 @@ import { useDeleteUser } from '../../hooks/api/deleteUser';
 
 const campaignOptions = [
   {
+    key: 'berlin-1',
+    text: 'Berlin 1',
+    value: 'berlin-1',
+  },
+  {
+    key: 'berlin-2',
+    text: 'Berlin 2',
+    value: 'berlin-2',
+  },
+  {
     key: 'schleswig-holstein-1',
     text: 'Schleswig Holstein 1',
     value: 'schleswig-holstein-1',
@@ -21,16 +31,6 @@ const campaignOptions = [
     key: 'hamburg-1',
     text: 'Hamburg 1',
     value: 'hamburg-1',
-  },
-  {
-    key: 'berlin-1',
-    text: 'Berlin 1',
-    value: 'berlin-1',
-  },
-  {
-    key: 'berlin-2',
-    text: 'Berlin 2',
-    value: 'berlin-2',
   },
   {
     key: 'bremen-1',
@@ -235,7 +235,7 @@ const UserInfo = () => {
 };
 
 const CreateListForm = ({ userId }) => {
-  const [campaign, setCampaign] = useState('');
+  const [campaign, setCampaign] = useState(campaignOptions[1].value);
   const [state, pdf, createSignatureList] = useCreateSignatureList();
   const [formError, setFormError] = useState(false);
 
@@ -265,6 +265,7 @@ const CreateListForm = ({ userId }) => {
             }
           }
           label="Kampagne"
+          defaultValue={campaignOptions[1].value}
         />
         <Form.Button className="inlineButton" onClick={() => handleClick()}>
           {!userId && 'Anonyme'} Liste generieren
