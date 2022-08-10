@@ -9,6 +9,7 @@ import AuthContext from '../../context/authentication';
 import ScanForms from '../ScanForms';
 import SignatureStats from '../Stats/SignatureStats';
 import UserStats from '../Stats/UserStats';
+import MunicipalityStats from '../Stats/MunicipalityStats';
 import SignatureListStats from '../Stats/SignatureListStats';
 import Helmet from 'react-helmet';
 import UserInfo from '../UserInfo';
@@ -66,10 +67,11 @@ const App = () => {
                 <Helmet>
                   <title>Statistiken</title>
                 </Helmet>
-                <ActiveUserCount />  
+                <ActiveUserCount /> 
+                <UserStats /> 
                 <SignatureListStats />
                 <SignatureStats />
-                <UserStats />
+                <MunicipalityStats />
               </Route>
 
               <Route path="/donations">
