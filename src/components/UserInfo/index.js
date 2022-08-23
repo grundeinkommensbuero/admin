@@ -5,6 +5,7 @@ import './index.css';
 import { useCreateSignatureList } from '../../hooks/api/createSignatureList';
 import { useUpdateUser } from '../../hooks/api/updateUser';
 import { useDeleteUser } from '../../hooks/api/deleteUser';
+import { useEnableCirclesShop } from '../../hooks/api/enableCirclesShop';
 
 const campaignOptions = [
   {
@@ -47,6 +48,7 @@ const UserInfo = () => {
   const [state, users, searchUsers] = useSearchUser();
   const [listLimit, setListLimit] = useState(10);
   const [updateUserState, updateUser, setUpdateUserState] = useUpdateUser();
+  const [enableShopState, enableShop] = useEnableCirclesShop();
 
   const triggerSearch = useCallback(() => {
     if (shouldTriggerSearch) {
@@ -133,6 +135,16 @@ const UserInfo = () => {
             <p>Fehler beim Austragen aus dem Newsletter!</p>
           )}
 
+          {enableShopState === 'error' && (
+            <p>Fehler beim Aktivieren des Circles Shops</p>
+          )}
+
+          {enableShopState === 'noCircles' && (
+            <p>
+              Die Person hat noch keine Circles Wallet mit dem Account verknüpft
+            </p>
+          )}
+
           <div className="userInfoTable">
             <Table celled>
               <Table.Header>
@@ -214,6 +226,12 @@ const UserInfo = () => {
                             Aus Newsletter entfernen
                           </Button>
                         )}
+                        <Button
+                          loading={enableShopState === 'loading'}
+                          onClick={() => enableShop(user.cognitoId)}
+                        >
+                          Circles Shop aktivieren
+                        </Button>
                         <ConfirmationModal
                           trigger={<Button negative>User*in löschen</Button>}
                           user={user}
