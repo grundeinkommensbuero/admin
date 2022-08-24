@@ -145,6 +145,10 @@ const UserInfo = () => {
             </p>
           )}
 
+          {enableShopState === 'success' && (
+            <p>Circles Shop erfolgreich aktiviert</p>
+          )}
+
           <div className="userInfoTable">
             <Table celled>
               <Table.Header>
@@ -226,12 +230,17 @@ const UserInfo = () => {
                             Aus Newsletter entfernen
                           </Button>
                         )}
-                        <Button
-                          loading={enableShopState === 'loading'}
-                          onClick={() => enableShop(user.cognitoId)}
-                        >
-                          Circles Shop aktivieren
-                        </Button>
+                        {user.store &&
+                          !user.store.circlesStoreEnabled &&
+                          user.store.circlesResumee &&
+                          user.store.circlesResumee.safeAddress && (
+                            <Button
+                              loading={enableShopState === 'loading'}
+                              onClick={() => enableShop(user.cognitoId)}
+                            >
+                              Circles Shop aktivieren
+                            </Button>
+                          )}
                         <ConfirmationModal
                           trigger={<Button negative>User*in löschen</Button>}
                           user={user}
