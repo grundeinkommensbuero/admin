@@ -231,7 +231,7 @@ const UserInfo = () => {
                           </Button>
                         )}
                         {user.store &&
-                          !user.store.circlesStoreEnabled &&
+                          !user.store.voucherStoreEnabled &&
                           user.store.circlesResumee &&
                           user.store.circlesResumee.safeAddress && (
                             <Button
