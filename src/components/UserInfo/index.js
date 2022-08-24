@@ -75,6 +75,12 @@ const UserInfo = () => {
     }
   }, [updateUserState, setUpdateUserState]);
 
+  useEffect(() => {
+    if (enableShopState === 'success') {
+      setShouldTriggerSearch(true);
+    }
+  }, [enableShopState]);
+
   return (
     <>
       <Form onSubmit={() => setShouldTriggerSearch(true)}>
@@ -170,6 +176,8 @@ const UserInfo = () => {
               </Table.Header>
               <Table.Body>
                 {users.map((user) => {
+                  console.log(user.store);
+
                   return (
                     <Table.Row key={user.cognitoId}>
                       <Table.Cell>{user.email}</Table.Cell>
@@ -236,7 +244,14 @@ const UserInfo = () => {
                           user.store.circlesResumee.safeAddress && (
                             <Button
                               loading={enableShopState === 'loading'}
-                              onClick={() => enableShop(user.cognitoId)}
+                              onClick={() => {
+                                // We need to reset email to this user's email
+                                // otherwise, if in the meantime the input was changed,
+                                // the new email would be searched.
+                                setEmail(user.email);
+                                setShouldTriggerSearch(false);
+                                enableShop(user.cognitoId);
+                              }}
                             >
                               Circles Shop aktivieren
                             </Button>
